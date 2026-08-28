@@ -181,6 +181,22 @@
 
                 </li>
 
+                @guest
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('login') }}">LOGIN</a>
+                    </li>
+                @else
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('dashboard') }}">DASHBOARD</a>
+                    </li>
+                    <li class="nav-item">
+                        <form action="{{ route('logout') }}" method="POST">
+                            @csrf
+                            <button class="nav-link border-0 bg-transparent" type="submit">LOGOUT</button>
+                        </form>
+                    </li>
+                @endguest
+
             </ul>
 
         </div>

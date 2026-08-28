@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Login - POLNEP</title>
+    <title>Register - POLNEP</title>
 
     <style>
         * {
@@ -22,7 +22,7 @@
             background: #f1f3f5;
         }
 
-        .login-container {
+        .register-container {
             width: 400px;
             background: white;
             padding: 40px;
@@ -46,7 +46,7 @@
         }
 
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 18px;
         }
 
         label {
@@ -57,7 +57,7 @@
 
         input {
             width: 100%;
-            padding: 13px;
+            padding: 12px;
             border: 1px solid #ccc;
             border-radius: 7px;
             font-size: 15px;
@@ -68,7 +68,7 @@
             border-color: #0099e5;
         }
 
-        .login-button {
+        .register-button {
             width: 100%;
             padding: 13px;
             border: none;
@@ -81,7 +81,7 @@
             transition: .3s;
         }
 
-        .login-button:hover {
+        .register-button:hover {
             background: #000;
             transform: translateY(-2px);
         }
@@ -94,17 +94,18 @@
             margin-bottom: 20px;
         }
 
-        .register {
+        .login {
             text-align: center;
             margin-top: 20px;
         }
 
-        .register a {
+        .login a {
             color: #0099e5;
             text-decoration: none;
+            font-weight: 600;
         }
 
-        .register a:hover {
+        .login a:hover {
             color: #000;
         }
     </style>
@@ -112,19 +113,13 @@
 
 <body>
 
-<div class="login-container">
+<div class="register-container">
 
     <div class="logo">
         <img src="{{ asset('images/logo-polnep.png') }}" alt="POLNEP">
     </div>
 
-    <h2>Login</h2>
-
-    @if(session('error'))
-        <div class="error">
-            {{ session('error') }}
-        </div>
-    @endif
+    <h2>Create Account</h2>
 
     @if($errors->any())
         <div class="error">
@@ -132,19 +127,32 @@
         </div>
     @endif
 
-    <form action="{{ route('login.process') }}" method="POST">
+    <form action="{{ route('register.process') }}" method="POST">
 
         @csrf
 
         <div class="form-group">
-            <label for="login">Username / Email</label>
+            <label for="name">Username</label>
 
             <input
                 type="text"
-                id="login"
-                name="login"
-                placeholder="Enter username or email"
-                value="{{ old('login') }}"
+                id="name"
+                name="name"
+                value="{{ old('name') }}"
+                placeholder="Enter username"
+                required
+            >
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email</label>
+
+            <input
+                type="email"
+                id="email"
+                name="email"
+                value="{{ old('email') }}"
+                placeholder="Enter email"
                 required
             >
         </div>
@@ -161,15 +169,27 @@
             >
         </div>
 
-        <button type="submit" class="login-button">
-            Login
+        <div class="form-group">
+            <label for="password_confirmation">Confirm Password</label>
+
+            <input
+                type="password"
+                id="password_confirmation"
+                name="password_confirmation"
+                placeholder="Confirm password"
+                required
+            >
+        </div>
+
+        <button type="submit" class="register-button">
+            Register
         </button>
 
     </form>
 
-    <div class="register">
-        Don't have an account?
-        <a href="{{ route('register') }}">Register</a>
+    <div class="login">
+        Already have an account?
+        <a href="{{ route('login') }}">Login</a>
     </div>
 
 </div>
