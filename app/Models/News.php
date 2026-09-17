@@ -14,6 +14,7 @@ class News extends Model
         'user_id',
         'title',
         'tag',
+        'link',
         'slug',
         'description',
         'image',

@@ -17,9 +17,40 @@
     <!-- CSS -->
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 
+    <style>
+        body { transition: background .25s ease, color .25s ease; }
+        body.landing-dark { --landing-bg: #202a38; --landing-surface: #2c3949; --landing-panel: #344458; --landing-text: #f4f7fb; --landing-muted: #c7d0dc; background: var(--landing-bg); color: var(--landing-text); }
+        body.landing-dark .topbar { background: #1596b8; }
+        body.landing-dark .navbar, body.landing-dark .card, body.landing-dark .logo-polnep { background: var(--landing-surface) !important; color: var(--landing-text); }
+        body.landing-dark .search-section { background: #182331; }
+        body.landing-dark .menu-card { background: var(--landing-bg); }
+        body.landing-dark .menu-card .card { background: var(--landing-panel); }
+        body.landing-dark footer { background: #182331 !important; }
+        body.landing-dark .latest-news h2, body.landing-dark .card h4, body.landing-dark .card h6, body.landing-dark .card p { color: var(--landing-text) !important; }
+        body.landing-dark .card-body p { color: var(--landing-muted) !important; }
+        body.landing-dark .navbar .nav-link, body.landing-dark .navbar-brand { color: var(--landing-text) !important; }
+        body.landing-dark .navbar-brand img, body.landing-dark .logo-polnep img { filter: brightness(1.55) contrast(.9); }
+        body.landing-dark .form-control { background: #f3f5f7; color: #1d2733; }
+        body.landing-dark .latest-news { background: var(--landing-bg); }
+        .landing-account { display: flex; align-items: center; gap: 7px; margin-left: 12px; white-space: nowrap; }
+        .landing-avatar { width: 28px; height: 28px; display: grid; place-items: center; border-radius: 50%; color: white; background: #ef7b32; font-size: 13px; font-weight: 700; }
+        .landing-account-menu { position: relative; }
+        .landing-account-menu form { position: absolute; top: calc(100% + 4px); right: 0; z-index: 10; display: none; padding: 5px; border-radius: 5px; background: #1f2d4c; box-shadow: 0 5px 14px rgba(0, 0, 0, .25); }
+        .landing-account-menu:hover form, .landing-account-menu:focus-within form { display: block; }
+        .landing-theme { border: 0; padding: 5px 9px; color: inherit; background: transparent; font-size: 18px; cursor: pointer; }
+        .landing-logout { border: 0; padding: 5px 9px; color: inherit; background: transparent; }
+        @media (max-width: 991px) { .landing-account { margin: 8px 0 0; } }
+    </style>
+
 </head>
 
 <body>
+@auth
+    @php
+        $landingFirstName = explode(' ', trim(auth()->user()->name))[0];
+        $landingInitial = strtoupper(substr($landingFirstName, 0, 1));
+    @endphp
+@endauth
 
 <!-- ========================= -->
 <!-- TOPBAR -->
@@ -181,21 +212,30 @@
 
                 </li>
 
-                @guest
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('login') }}">LOGIN</a>
+                <li class="nav-item">
+                    <button class="landing-theme" id="landing-theme-toggle" type="button" aria-label="Switch to dark mode" title="Switch theme">
+                        <i class="bi bi-moon"></i>
+                    </button>
+                </li>
+
+                @auth
+                    <li class="nav-item landing-account">
+                        <div class="landing-account-menu">
+                            <a class="landing-account" href="{{ route('dashboard') }}" title="Open dashboard">
+                                <span class="landing-avatar" aria-hidden="true">{{ $landingInitial }}</span>
+                                <span>{{ auth()->user()->name }}</span>
+                            </a>
+                            <form action="{{ route('logout') }}" method="POST">
+                                @csrf
+                                <button class="nav-link landing-logout" type="submit">LOGOUT</button>
+                            </form>
+                        </div>
                     </li>
                 @else
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('dashboard') }}">DASHBOARD</a>
+                        <a class="nav-link" href="{{ route('login') }}">LOGIN</a>
                     </li>
-                    <li class="nav-item">
-                        <form action="{{ route('logout') }}" method="POST">
-                            @csrf
-                            <button class="nav-link border-0 bg-transparent" type="submit">LOGOUT</button>
-                        </form>
-                    </li>
-                @endguest
+                @endauth
 
             </ul>
 
@@ -694,5 +734,23 @@ Digital Repository
 </footer>
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    const landingThemeToggle = document.getElementById('landing-theme-toggle');
+    const landingThemeIcon = landingThemeToggle.querySelector('i');
+
+    function applyLandingTheme(theme) {
+        const darkMode = theme === 'dark';
+        document.body.classList.toggle('landing-dark', darkMode);
+        landingThemeIcon.className = darkMode ? 'bi bi-sun' : 'bi bi-moon';
+        landingThemeToggle.setAttribute('aria-label', darkMode ? 'Switch to light mode' : 'Switch to dark mode');
+    }
+
+    applyLandingTheme(localStorage.getItem('polnep-theme') || 'light');
+    landingThemeToggle.addEventListener('click', function () {
+        const nextTheme = document.body.classList.contains('landing-dark') ? 'light' : 'dark';
+        localStorage.setItem('polnep-theme', nextTheme);
+        applyLandingTheme(nextTheme);
+    });
+</script>
 </body>
 </html> 

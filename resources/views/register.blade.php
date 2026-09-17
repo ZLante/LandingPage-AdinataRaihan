@@ -116,7 +116,7 @@
 <div class="register-container">
 
     <div class="logo">
-        <img src="{{ asset('images/logo-polnep.png') }}" alt="POLNEP">
+        <img src="{{ asset('images/logo.png') }}" alt="POLNEP">
     </div>
 
     <h2>Create Account</h2>

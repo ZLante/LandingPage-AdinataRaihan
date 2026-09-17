@@ -68,6 +68,16 @@
             border-color: #0099e5;
         }
 
+        select {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #ccc;
+            border-radius: 7px;
+            color: #333;
+            background: white;
+            font-size: 15px;
+        }
+
         .login-button {
             width: 100%;
             padding: 13px;
@@ -115,7 +125,7 @@
 <div class="login-container">
 
     <div class="logo">
-        <img src="{{ asset('images/logo-polnep.png') }}" alt="POLNEP">
+        <img src="{{ asset('images/logo.png') }}" alt="POLNEP">
     </div>
 
     <h2>Login</h2>
@@ -135,6 +145,14 @@
     <form action="{{ route('login.process') }}" method="POST">
 
         @csrf
+
+        <div class="form-group">
+            <label for="role">Sign in as</label>
+            <select id="role" name="role" required>
+                <option value="user" @selected(old('role', 'user') === 'user')>User</option>
+                <option value="admin" @selected(old('role') === 'admin')>Admin</option>
+            </select>
+        </div>
 
         <div class="form-group">
             <label for="login">Username / Email</label>

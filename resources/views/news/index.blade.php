@@ -26,12 +26,20 @@
             <div class="card border-0 shadow-sm">
                 <div class="table-responsive">
                     <table class="table align-middle mb-0">
-                        <thead><tr><th>Title</th><th>Tag</th><th>Status</th><th>Published</th><th class="text-end">Actions</th></tr></thead>
+                        <thead><tr><th>Image</th><th>Title</th><th>Tag</th><th>Link</th><th>Status</th><th>Published</th><th class="text-end">Actions</th></tr></thead>
                         <tbody>
                             @foreach($newsItems as $news)
                                 <tr>
+                                    <td>
+                                        @if($news->image)
+                                            <img src="{{ asset('storage/' . $news->image) }}" alt="" width="64" height="42" class="rounded" style="object-fit: cover;">
+                                        @else
+                                            <span class="text-muted">None</span>
+                                        @endif
+                                    </td>
                                     <td><strong>{{ $news->title }}</strong><br><small class="text-muted">{{ Str::limit($news->description, 80) }}</small></td>
                                     <td>{{ $news->tag ?: 'No tag' }}</td>
+                                    <td>@if($news->link)<a href="{{ $news->link }}" target="_blank" rel="noopener">Open</a>@else<span class="text-muted">None</span>@endif</td>
                                     <td><span class="badge text-bg-{{ $news->status === 'published' ? 'success' : 'secondary' }}">{{ ucfirst($news->status) }}</span></td>
                                     <td>{{ $news->published_at?->format('M d, Y') ?? '-' }}</td>
                                     <td class="text-end text-nowrap">

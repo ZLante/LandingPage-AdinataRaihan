@@ -21,6 +21,7 @@ class LoginController extends Controller
         $request->validate([
             'login' => 'required',
             'password' => 'required',
+            'role' => 'required|in:admin,user',
         ]);
 
         $login = $request->login;
@@ -29,10 +30,19 @@ class LoginController extends Controller
             ? 'email'
             : 'name';
 
+        $user = User::whereRaw("LOWER($field) = ?", [strtolower($login)])
+            ->where('role', $request->role)
+            ->first();
+
         $credentials = [
             $field => $login,
             'password' => $request->password,
+            'role' => $request->role,
         ];
+
+        if ($user) {
+            $credentials[$field] = $user->{$field};
+        }
 
         if (Auth::attempt($credentials)) {
 
@@ -42,8 +52,8 @@ class LoginController extends Controller
         }
 
         return back()
-            ->withInput($request->only('login'))
-            ->with('error', 'Username/Email atau password salah.');
+            ->withInput($request->only('login', 'role'))
+            ->with('error', 'The selected account type, username/email, or password is incorrect.');
     }
 
 
@@ -66,6 +76,7 @@ class LoginController extends Controller
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
+            'role' => 'user',
             'password' => Hash::make($request->password),
         ]);
 

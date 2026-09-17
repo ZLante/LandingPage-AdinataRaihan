@@ -10,24 +10,6 @@ return new class extends Migration
     {
         /*
         |--------------------------------------------------------------------------
-        | Contacts
-        |--------------------------------------------------------------------------
-        */
-
-        Schema::create('contacts', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('email');
-            $table->string('phone', 50)->nullable();
-            $table->string('subject')->nullable();
-            $table->text('message');
-            $table->string('status', 50)->default('unread');
-            $table->timestamps();
-        });
-
-
-        /*
-        |--------------------------------------------------------------------------
         | Profiles
         |--------------------------------------------------------------------------
         */
@@ -119,6 +101,5 @@ return new class extends Migration
         Schema::dropIfExists('achievements');
         Schema::dropIfExists('departments');
         Schema::dropIfExists('profiles');
-        Schema::dropIfExists('contacts');
     }
 };
