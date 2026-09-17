@@ -41,6 +41,7 @@
         .subnodes { width: 100%; display: flex; flex-direction: column; align-items: center; gap: 17px; }
         .subnodes .node::before { content: ''; position: absolute; left: 50%; bottom: 100%; height: 17px; border-left: 1px solid #8d8dff; }
         .node-actions { position: absolute; left: 100%; top: 3px; display: flex; gap: 3px; padding-left: 4px; }
+        .node-actions form { display: inline; margin: 0; }
         .node-actions a, .node-actions button { border: 0; padding: 2px 4px; color: #172039; background: transparent; font-size: 9px; cursor: pointer; }
         .footer-info { grid-column: 1; display: flex; flex-direction: column; justify-content: center; padding: 10px 18px; background: var(--cyan); }
         .footer-info img { width: 185px; margin-bottom: 5px; }
@@ -94,7 +95,15 @@
                         <div class="node root">
                             @if($member->photo)<img src="{{ asset('storage/' . $member->photo) }}" alt="">@else<span class="node-avatar">{{ strtoupper(substr($member->name, 0, 1)) }}</span>@endif
                             <span class="node-copy"><strong>{{ $member->name }}</strong><span>{{ $member->position }}</span></span>
-                            @if(auth()->user()->role === 'admin')<span class="node-actions"><a href="{{ route('organization.edit', $member) }}" title="Edit"><i class="bi bi-pencil"></i></a></span>@endif
+                            @if(auth()->user()->role === 'admin')
+                                <span class="node-actions">
+                                    <a href="{{ route('organization.edit', $member) }}" title="Edit"><i class="bi bi-pencil"></i></a>
+                                    <form action="{{ route('organization.destroy', $member) }}" method="POST" onsubmit="return confirm('Delete this member?')">
+                                        @csrf @method('DELETE')
+                                        <button type="submit" title="Delete"><i class="bi bi-trash"></i></button>
+                                    </form>
+                                </span>
+                            @endif
                         </div>
                         @if($member->children->isNotEmpty())
                             <div class="branches">
@@ -103,7 +112,15 @@
                                         <div class="node">
                                             @if($child->photo)<img src="{{ asset('storage/' . $child->photo) }}" alt="">@else<span class="node-avatar">{{ strtoupper(substr($child->name, 0, 1)) }}</span>@endif
                                             <span class="node-copy"><strong>{{ $child->name }}</strong><span>{{ $child->position }}</span></span>
-                                            @if(auth()->user()->role === 'admin')<span class="node-actions"><a href="{{ route('organization.edit', $child) }}" title="Edit"><i class="bi bi-pencil"></i></a></span>@endif
+                                            @if(auth()->user()->role === 'admin')
+                                                <span class="node-actions">
+                                                    <a href="{{ route('organization.edit', $child) }}" title="Edit"><i class="bi bi-pencil"></i></a>
+                                                    <form action="{{ route('organization.destroy', $child) }}" method="POST" onsubmit="return confirm('Delete this member?')">
+                                                        @csrf @method('DELETE')
+                                                        <button type="submit" title="Delete"><i class="bi bi-trash"></i></button>
+                                                    </form>
+                                                </span>
+                                            @endif
                                         </div>
                                         @if($child->children->isNotEmpty())
                                             <div class="subnodes">
@@ -111,7 +128,15 @@
                                                     <div class="node">
                                                         @if($grandchild->photo)<img src="{{ asset('storage/' . $grandchild->photo) }}" alt="">@else<span class="node-avatar">{{ strtoupper(substr($grandchild->name, 0, 1)) }}</span>@endif
                                                         <span class="node-copy"><strong>{{ $grandchild->name }}</strong><span>{{ $grandchild->position }}</span></span>
-                                                        @if(auth()->user()->role === 'admin')<span class="node-actions"><a href="{{ route('organization.edit', $grandchild) }}" title="Edit"><i class="bi bi-pencil"></i></a></span>@endif
+                                                        @if(auth()->user()->role === 'admin')
+                                                            <span class="node-actions">
+                                                                <a href="{{ route('organization.edit', $grandchild) }}" title="Edit"><i class="bi bi-pencil"></i></a>
+                                                                <form action="{{ route('organization.destroy', $grandchild) }}" method="POST" onsubmit="return confirm('Delete this member?')">
+                                                                    @csrf @method('DELETE')
+                                                                    <button type="submit" title="Delete"><i class="bi bi-trash"></i></button>
+                                                                </form>
+                                                            </span>
+                                                        @endif
                                                     </div>
                                                 @endforeach
                                             </div>

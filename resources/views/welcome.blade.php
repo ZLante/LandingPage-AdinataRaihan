@@ -32,8 +32,11 @@
         body.landing-dark .navbar-brand img, body.landing-dark .logo-polnep img { filter: brightness(1.55) contrast(.9); }
         body.landing-dark .form-control { background: #f3f5f7; color: #1d2733; }
         body.landing-dark .latest-news { background: var(--landing-bg); }
+        .legacy-news { display: none; }
+        .live-news .card-img-top { height: 190px; object-fit: cover; }
+        .live-news .news-empty { min-height: 180px; display: grid; place-items: center; }
         .landing-account { display: flex; align-items: center; gap: 7px; margin-left: 12px; white-space: nowrap; }
-        .landing-avatar { width: 28px; height: 28px; display: grid; place-items: center; border-radius: 50%; color: white; background: #ef7b32; font-size: 13px; font-weight: 700; }
+        .landing-avatar { width: 28px; height: 28px; display: grid; place-items: center; border-radius: 50%; color: white; background: #ef7b32; font-size: 13px; font-weight: 700; object-fit: cover; }
         .landing-account-menu { position: relative; }
         .landing-account-menu form { position: absolute; top: calc(100% + 4px); right: 0; z-index: 10; display: none; padding: 5px; border-radius: 5px; background: #1f2d4c; box-shadow: 0 5px 14px rgba(0, 0, 0, .25); }
         .landing-account-menu:hover form, .landing-account-menu:focus-within form { display: block; }
@@ -222,7 +225,11 @@
                     <li class="nav-item landing-account">
                         <div class="landing-account-menu">
                             <a class="landing-account" href="{{ route('dashboard') }}" title="Open dashboard">
-                                <span class="landing-avatar" aria-hidden="true">{{ $landingInitial }}</span>
+                                @if(auth()->user()->profile_photo)
+                                    <img class="landing-avatar" src="{{ asset('storage/' . auth()->user()->profile_photo) }}" alt="{{ auth()->user()->name }}">
+                                @else
+                                    <span class="landing-avatar" aria-hidden="true">{{ $landingInitial }}</span>
+                                @endif
                                 <span>{{ auth()->user()->name }}</span>
                             </a>
                             <form action="{{ route('logout') }}" method="POST">
@@ -433,7 +440,45 @@ Digital Repository
 <!-- LATEST NEWS -->
 <!-- ========================= -->
 
-<section class="latest-news py-5">
+<section class="latest-news live-news py-5">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="fw-bold">Latest News</h2>
+            @auth
+                @if(auth()->user()->role === 'admin')
+                    <a href="{{ route('news.index') }}" class="btn btn-outline-primary">Manage News <i class="bi bi-arrow-right"></i></a>
+                @endif
+            @endauth
+        </div>
+        @if($latestNews->isEmpty())
+            <div class="card border-0 shadow-sm news-empty"><p class="text-muted mb-0">No published news yet.</p></div>
+        @else
+            <div class="row g-4">
+                @foreach($latestNews as $news)
+                    <div class="col-md-6 col-lg-4">
+                        <article class="card h-100 border-0 shadow">
+                            @if($news->image)
+                                <img src="{{ asset('storage/' . $news->image) }}" class="card-img-top" alt="{{ $news->title }}">
+                            @else
+                                <img src="{{ asset('images/news1.jpg') }}" class="card-img-top" alt="{{ $news->title }}">
+                            @endif
+                            <div class="card-body">
+                                <small class="text-primary">{{ $news->tag ?: 'News' }} · {{ $news->published_at?->format('M d, Y') }}</small>
+                                <h5 class="fw-bold mt-2">{{ $news->title }}</h5>
+                                <p class="text-muted">{{ Str::limit($news->description, 120) }}</p>
+                                @if($news->link)
+                                    <a href="{{ $news->link }}" class="btn btn-primary" target="_blank" rel="noopener">Read More</a>
+                                @endif
+                            </div>
+                        </article>
+                    </div>
+                @endforeach
+            </div>
+        @endif
+    </div>
+</section>
+
+<section class="latest-news legacy-news py-5">
 
     <div class="container">
 

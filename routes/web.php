@@ -6,9 +6,12 @@ use App\Http\Controllers\AdminPageController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\OrganizationController;
+use App\Models\News;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('welcome', [
+        'latestNews' => News::where('status', 'published')->latest()->take(5)->get(),
+    ]);
 });
 
 // Login page
@@ -39,6 +42,8 @@ Route::middleware('auth')->group(function () {
     Route::middleware('admin')->group(function () {
         Route::resource('news', NewsController::class)->except('show');
         Route::resource('organization', OrganizationController::class)->except(['show', 'index'])->names('organization');
+        Route::get('/admin/visi-misi/edit', [AdminPageController::class, 'editVisiMisi'])->name('admin.visi-misi.edit');
+        Route::put('/admin/visi-misi', [AdminPageController::class, 'updateVisiMisi'])->name('admin.visi-misi.update');
     });
 
     Route::get('/organization', [OrganizationController::class, 'index'])->name('organization.index');
