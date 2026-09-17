@@ -145,7 +145,7 @@
                         </li>
 
                         <li>
-                            <a class="dropdown-item" href="#">
+                            <a class="dropdown-item" href="{{ route('visi-misi') }}">
                                 Visi Misi
                             </a>
                         </li>

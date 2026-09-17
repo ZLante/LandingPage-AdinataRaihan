@@ -2,8 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\AdminPageController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\NewsController;
+use App\Http\Controllers\OrganizationController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -25,6 +27,8 @@ Route::get('/register', [LoginController::class, 'showRegister'])
 Route::post('/register', [LoginController::class, 'register'])
     ->name('register.process');
 
+Route::get('/visi-misi', [AdminPageController::class, 'visiMisi'])->name('visi-misi');
+
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])
         ->name('dashboard');
@@ -32,5 +36,16 @@ Route::middleware('auth')->group(function () {
     Route::post('/logout', [LoginController::class, 'logout'])
         ->name('logout');
 
-    Route::resource('news', NewsController::class)->except('show');
+    Route::middleware('admin')->group(function () {
+        Route::resource('news', NewsController::class)->except('show');
+        Route::resource('organization', OrganizationController::class)->except(['show', 'index'])->names('organization');
+    });
+
+    Route::get('/organization', [OrganizationController::class, 'index'])->name('organization.index');
+
+    Route::get('/admin/email', [AdminPageController::class, 'email'])->name('admin.email');
+    Route::get('/admin/visi-misi', [AdminPageController::class, 'visiMisi'])->name('admin.visi-misi');
+    Route::get('/admin/settings', [AdminPageController::class, 'settings'])->name('admin.settings');
+    Route::put('/admin/settings', [AdminPageController::class, 'updateSettings'])->name('admin.settings.update');
+    Route::get('/admin/help', [AdminPageController::class, 'help'])->name('admin.help');
 });

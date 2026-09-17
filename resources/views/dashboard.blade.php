@@ -70,14 +70,16 @@
             <a class="brand" href="{{ route('dashboard') }}"><img src="{{ asset('images/logo.png') }}" alt="POLNEP"></a>
             <nav class="side-menu" aria-label="Dashboard navigation">
                 <a class="active" href="{{ route('dashboard') }}"><i class="bi bi-house-door"></i>Home</a>
-                <a href="{{ route('news.index') }}"><i class="bi bi-chat"></i>News</a>
-                <a href="#"><i class="bi bi-envelope"></i>Email</a>
-                <a href="#"><i class="bi bi-people"></i>Organization Structure</a>
-                <a href="#"><i class="bi bi-phone"></i>Visi &amp; Misi</a>
+                @if(auth()->user()->role === 'admin')
+                    <a href="{{ route('news.index') }}"><i class="bi bi-chat"></i>News</a>
+                @endif
+                <a href="{{ route('admin.email') }}"><i class="bi bi-envelope"></i>Email</a>
+                <a href="{{ route('organization.index') }}"><i class="bi bi-people"></i>Organization Structure</a>
+                <a href="{{ route('visi-misi') }}"><i class="bi bi-phone"></i>Visi &amp; Misi</a>
                 <a href="{{ url('/') }}"><i class="bi bi-globe"></i>Landing Page</a>
                 <hr>
-                <a href="#"><i class="bi bi-gear"></i>Settings</a>
-                <a href="#"><i class="bi bi-question-circle"></i>Help</a>
+                <a href="{{ route('admin.settings') }}"><i class="bi bi-gear"></i>Settings</a>
+                <a href="{{ route('admin.help') }}"><i class="bi bi-question-circle"></i>Help</a>
             </nav>
         </aside>
 
