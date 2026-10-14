@@ -12,6 +12,12 @@ class LoginController extends Controller
     // Login page
     public function showLogin()
     {
+        if (Auth::check()) {
+            return Auth::user()->role === 'admin'
+                ? redirect()->route('dashboard')
+                : redirect()->route('home');
+        }
+
         return view('login');
     }
 
@@ -21,45 +27,43 @@ class LoginController extends Controller
         $request->validate([
             'login' => 'required',
             'password' => 'required',
-            'role' => 'required|in:admin,user',
         ]);
 
-        $login = $request->login;
+        $login = trim($request->login);
 
-        $field = filter_var($login, FILTER_VALIDATE_EMAIL)
-            ? 'email'
-            : 'name';
-
-        $user = User::whereRaw("LOWER($field) = ?", [strtolower($login)])
-            ->where('role', $request->role)
+        $user = User::query()
+            ->where(function ($query) use ($login) {
+                $query->whereRaw('LOWER(name) = ?', [strtolower($login)])
+                    ->orWhereRaw('LOWER(email) = ?', [strtolower($login)]);
+            })
             ->first();
 
-        $credentials = [
-            $field => $login,
+        if ($user && Auth::attempt([
+            'email' => $user->email,
             'password' => $request->password,
-            'role' => $request->role,
-        ];
-
-        if ($user) {
-            $credentials[$field] = $user->{$field};
-        }
-
-        if (Auth::attempt($credentials)) {
-
+        ])) {
             $request->session()->regenerate();
 
-            return redirect('/dashboard');
+            return $user->role === 'admin'
+                ? redirect()->route('dashboard')
+                : redirect()->route('home');
         }
 
         return back()
-            ->withInput($request->only('login', 'role'))
-            ->with('error', 'The selected account type, username/email, or password is incorrect.');
+            ->withInput($request->only('login'))
+            ->with('error', 'The username/email or password is incorrect.');
     }
 
 
     // Register page
     public function showRegister()
     {
+        if (Auth::check()) {
+            return Auth::user()->role === 'admin'
+                ? redirect()->route('dashboard')
+                : redirect()->route('home');
+        }
+
         return view('register');
     }
 
@@ -82,7 +86,7 @@ class LoginController extends Controller
 
         Auth::login($user);
 
-        return redirect('/dashboard');
+        return redirect()->route('home');
     }
 
     public function logout(Request $request)

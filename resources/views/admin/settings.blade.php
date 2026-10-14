@@ -11,7 +11,7 @@
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
 
-    <form action="{{ route('admin.settings.update') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ auth()->user()->role === 'admin' ? route('admin.settings.update') : route('account.settings.update') }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
 

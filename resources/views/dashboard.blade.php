@@ -96,6 +96,8 @@
                 <a class="active" href="{{ route('dashboard') }}"><i class="bi bi-house-door"></i>Home</a>
                 @if(auth()->user()->role === 'admin')
                     <a href="{{ route('news.index') }}"><i class="bi bi-chat"></i>News</a>
+                    <a href="{{ route('partners.index') }}"><i class="bi bi-handshake"></i>Collaborations</a>
+                    <a href="{{ route('faqs.index') }}"><i class="bi bi-patch-question"></i>FAQs</a>
                 @endif
                 <a href="{{ route('admin.email') }}"><i class="bi bi-envelope"></i>Email</a>
                 <a href="{{ route('organization.index') }}"><i class="bi bi-people"></i>Organization Structure</a>

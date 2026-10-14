@@ -9,7 +9,7 @@
         :root { --cyan: #1aa8d0; --blue: #139fe6; --yellow: #e4be25; --ink: #111; }
         * { box-sizing: border-box; }
         body { margin: 0; min-height: 100vh; color: var(--ink); font-family: Arial, sans-serif; background: #fff; }
-        .visi-page { min-height: 100vh; display: grid; grid-template-columns: 238px 1fr; grid-template-rows: 31px 120px 1fr 190px; }
+        .visi-page { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 31px 220px 1fr 190px; }
         .topbar { grid-column: 1 / -1; display: flex; justify-content: flex-end; align-items: center; padding: 0 11px; background: var(--blue); }
         .flags { display: flex; gap: 3px; }
         .flags img { width: 23px; height: 15px; object-fit: cover; }
@@ -20,15 +20,16 @@
         .breadcrumb { display: flex; justify-content: center; gap: 12px; margin: 0; font-size: 10px; text-transform: uppercase; }
         .breadcrumb a { color: white; text-decoration: none; }
         .breadcrumb .current { color: var(--yellow); }
-        .content { grid-column: 1 / -1; position: relative; padding: 40px 42px 50px; background: #fff; }
-        .content::before { content: ''; position: absolute; inset: 0; opacity: .22; background: radial-gradient(ellipse at 18% 15%, transparent 0 14%, #d2d2d2 15% 17%, transparent 18%), radial-gradient(ellipse at 76% 48%, transparent 0 20%, #d8d8d8 21% 24%, transparent 25%), linear-gradient(122deg, transparent 0 35%, #d8d8d8 36% 43%, transparent 44%); }
-        .content-inner { position: relative; max-width: 900px; }
-        .edit-link { display: inline-block; margin-bottom: 18px; padding: 7px 12px; border-radius: 4px; color: white; background: #139fe6; font-size: 12px; text-decoration: none; }
-        .content h2 { margin: 0 0 8px; font-size: 22px; text-decoration: underline; text-decoration-color: var(--blue); text-decoration-thickness: 3px; text-underline-offset: 3px; }
-        .content p, .content li { max-width: 850px; font-size: 21px; font-weight: 700; line-height: 1.55; }
+        .content { grid-column: 1 / -1; position: relative; padding: 42px 24px 54px; background: #f3f7fb; }
+        .content-inner { position: relative; max-width: 960px; margin: 0 auto; padding: 32px 38px; border: 1px solid #e2eaf1; border-radius: 16px; background: #fff; box-shadow: 0 12px 35px rgba(20, 58, 89, .09); }
+        .content-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-bottom: 28px; }
+        .home-link, .edit-link { display: inline-flex; align-items: center; gap: 7px; padding: 9px 14px; border: 1px solid #139fe6; border-radius: 7px; color: #0878ad; background: #fff; font-size: 13px; font-weight: 700; text-decoration: none; }
+        .edit-link { color: white; background: #139fe6; }
+        .content h2 { margin: 27px 0 10px; color: #123b61; font-size: 20px; font-weight: 800; letter-spacing: .04em; }
+        .content p, .content li { max-width: 850px; color: #34475a; font-size: 17px; font-weight: 400; line-height: 1.75; }
         .content p { margin: 0 0 5px; }
-        .content ol { margin: 0 0 0 34px; padding-left: 0; }
-        .content li { padding-left: 5px; }
+        .content ol { margin: 0 0 0 22px; padding-left: 10px; }
+        .content li { padding: 5px 0 5px 6px; }
         .footer-about { display: flex; flex-direction: column; justify-content: center; padding: 16px; background: var(--cyan); }
         .footer-about img { width: 190px; margin-bottom: 7px; }
         .footer-about p { max-width: 200px; margin: 0; font-size: 9px; line-height: 1.25; }
@@ -42,10 +43,11 @@
         .footer-contact h3 { margin: 0 0 11px; font-size: 9px; }
         .footer-contact p { margin: 7px 0; font-size: 8px; }
         @media (max-width: 700px) {
-            .visi-page { grid-template-columns: 1fr; grid-template-rows: 31px 150px auto auto auto; }
+            .visi-page { grid-template-columns: 1fr; grid-template-rows: 31px 180px auto auto auto; }
             .hero h1 { font-size: 29px; }
-            .content { padding: 30px 20px 40px; }
-            .content p, .content li { font-size: 17px; }
+            .content { padding: 24px 14px 32px; }
+            .content-inner { padding: 24px 20px; }
+            .content p, .content li { font-size: 16px; }
             .footer-about, .footer-contact { grid-column: 1; }
         }
     </style>
@@ -65,12 +67,13 @@
         </section>
         <main class="content">
             <div class="content-inner">
-                @if(session('success')) <div class="alert alert-success">{{ session('success') }}</div> @endif
-                @auth
-                    @if(auth()->user()->role === 'admin')
+                <div class="content-actions">
+                    <a class="home-link" href="{{ route('home') }}"><i class="bi bi-arrow-left"></i> Back to Home</a>
+                    @if(auth()->check() && auth()->user()->role === 'admin')
                         <a class="edit-link" href="{{ route('admin.visi-misi.edit') }}"><i class="bi bi-pencil"></i> Edit Visi &amp; Misi</a>
                     @endif
-                @endauth
+                </div>
+                @if(session('success')) <div class="alert alert-success">{{ session('success') }}</div> @endif
                 <h2>VISI</h2>
                 <p>{{ $content->visi }}</p>
                 <h2>MISI</h2>
@@ -85,7 +88,7 @@
             <img src="{{ asset('images/logo.png') }}" alt="POLNEP">
             <p>Politeknik Negeri Pontianak is a vocational Freedom Campus initiative that makes the learning process in vocational higher education more free to produce graduates that meet industry needs.</p>
             <strong>FOLLOW US :</strong>
-            <div class="socials"><a href="#"><i class="bi bi-facebook"></i></a><a href="#"><i class="bi bi-youtube"></i></a><a href="#"><i class="bi bi-instagram"></i></a></div>
+            <div class="socials"><a href="https://web.facebook.com/mediapolnep/mentions/?_rdc=1&amp;_rdr#" aria-label="POLNEP on Facebook" target="_blank" rel="noopener noreferrer"><i class="bi bi-facebook"></i></a><a href="https://www.youtube.com/@mediapolnep" aria-label="POLNEP on YouTube" target="_blank" rel="noopener noreferrer"><i class="bi bi-youtube"></i></a><a href="https://www.instagram.com/mediapolnep/?hl=en" aria-label="POLNEP on Instagram" target="_blank" rel="noopener noreferrer"><i class="bi bi-instagram"></i></a></div>
         </section>
         <section class="footer-contact">
             <h3>CONTACT &amp; LOCATION :</h3>

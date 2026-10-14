@@ -22,8 +22,10 @@
         .details h2 { margin: 0 0 17px; font-size: 14px; }
         .details p { margin: 0; font-size: 11px; }
         .chart-area { position: relative; overflow: auto; padding: 12px 50px 30px; background: #fff; }
-        .chart-heading { display: flex; justify-content: flex-end; min-height: 33px; }
+        .chart-heading { display: flex; justify-content: space-between; align-items: flex-start; min-height: 33px; }
         .chart-heading a { height: 22px; padding: 4px 10px; border-radius: 4px; color: white; background: var(--blue); font-size: 10px; text-decoration: none; }
+        .chart-heading .home-link { color: #075373; background: transparent; }
+        .read-only-note { margin: 0 0 12px; color: #53616b; font-size: 12px; }
         .chart { min-width: 650px; max-width: 850px; margin: 0 auto; padding-top: 5px; }
         .node { position: relative; width: 138px; min-height: 47px; display: flex; align-items: center; gap: 8px; padding: 8px 10px; border-radius: 11px; background: #1ba9d0; font-size: 9px; }
         .node.root { margin: 0 auto 54px; color: #fff; background: var(--blue); }
@@ -74,18 +76,23 @@
         </header>
 
         <aside class="details">
-            <a href="{{ route('dashboard') }}"><img class="brand" src="{{ asset('images/logo.png') }}" alt="POLNEP"></a>
+            <a href="{{ route('home') }}"><img class="brand" src="{{ asset('images/logo.png') }}" alt="POLNEP"></a>
             <h1>Polnep<br>Organizational<br>Chart</h1>
+            <p>View the campus structure and the people serving our community.</p>
             <h2>Last Update</h2>
             <p>{{ now()->format('F Y') }}</p>
         </aside>
 
         <main class="chart-area">
             <div class="chart-heading">
-                @if(auth()->user()->role === 'admin')
+                <a class="home-link" href="{{ route('home') }}"><i class="bi bi-arrow-left"></i> Back to Home</a>
+                @if(auth()->check() && auth()->user()->role === 'admin')
                     <a href="{{ route('organization.create') }}"><i class="bi bi-plus"></i> Add Member</a>
                 @endif
             </div>
+            @unless(auth()->check() && auth()->user()->role === 'admin')
+                <p class="read-only-note">This organization chart is available for viewing only.</p>
+            @endunless
             @if(session('success')) <div class="alert alert-success">{{ session('success') }}</div> @endif
             @if($members->isEmpty())
                 <p class="text-center">No organization members have been added yet.</p>
@@ -95,7 +102,7 @@
                         <div class="node root">
                             @if($member->photo)<img src="{{ asset('storage/' . $member->photo) }}" alt="">@else<span class="node-avatar">{{ strtoupper(substr($member->name, 0, 1)) }}</span>@endif
                             <span class="node-copy"><strong>{{ $member->name }}</strong><span>{{ $member->position }}</span></span>
-                            @if(auth()->user()->role === 'admin')
+                            @if(auth()->check() && auth()->user()->role === 'admin')
                                 <span class="node-actions">
                                     <a href="{{ route('organization.edit', $member) }}" title="Edit"><i class="bi bi-pencil"></i></a>
                                     <form action="{{ route('organization.destroy', $member) }}" method="POST" onsubmit="return confirm('Delete this member?')">
@@ -112,7 +119,7 @@
                                         <div class="node">
                                             @if($child->photo)<img src="{{ asset('storage/' . $child->photo) }}" alt="">@else<span class="node-avatar">{{ strtoupper(substr($child->name, 0, 1)) }}</span>@endif
                                             <span class="node-copy"><strong>{{ $child->name }}</strong><span>{{ $child->position }}</span></span>
-                                            @if(auth()->user()->role === 'admin')
+                                            @if(auth()->check() && auth()->user()->role === 'admin')
                                                 <span class="node-actions">
                                                     <a href="{{ route('organization.edit', $child) }}" title="Edit"><i class="bi bi-pencil"></i></a>
                                                     <form action="{{ route('organization.destroy', $child) }}" method="POST" onsubmit="return confirm('Delete this member?')">
@@ -128,7 +135,7 @@
                                                     <div class="node">
                                                         @if($grandchild->photo)<img src="{{ asset('storage/' . $grandchild->photo) }}" alt="">@else<span class="node-avatar">{{ strtoupper(substr($grandchild->name, 0, 1)) }}</span>@endif
                                                         <span class="node-copy"><strong>{{ $grandchild->name }}</strong><span>{{ $grandchild->position }}</span></span>
-                                                        @if(auth()->user()->role === 'admin')
+                                                        @if(auth()->check() && auth()->user()->role === 'admin')
                                                             <span class="node-actions">
                                                                 <a href="{{ route('organization.edit', $grandchild) }}" title="Edit"><i class="bi bi-pencil"></i></a>
                                                                 <form action="{{ route('organization.destroy', $grandchild) }}" method="POST" onsubmit="return confirm('Delete this member?')">
@@ -154,7 +161,7 @@
             <img src="{{ asset('images/logo.png') }}" alt="POLNEP">
             <p>Politeknik Negeri Pontianak is a vocational Freedom Campus initiative that makes the learning process in vocational higher education more free to produce graduates that meet industry needs.</p>
             <div class="social-title">FOLLOW US :</div>
-            <div class="socials"><a href="#"><i class="bi bi-facebook"></i></a><a href="#"><i class="bi bi-youtube"></i></a><a href="#"><i class="bi bi-instagram"></i></a></div>
+            <div class="socials"><a href="https://web.facebook.com/mediapolnep/mentions/?_rdc=1&amp;_rdr#" aria-label="POLNEP on Facebook" target="_blank" rel="noopener noreferrer"><i class="bi bi-facebook"></i></a><a href="https://www.youtube.com/@mediapolnep" aria-label="POLNEP on YouTube" target="_blank" rel="noopener noreferrer"><i class="bi bi-youtube"></i></a><a href="https://www.instagram.com/mediapolnep/?hl=en" aria-label="POLNEP on Instagram" target="_blank" rel="noopener noreferrer"><i class="bi bi-instagram"></i></a></div>
         </section>
         <section class="contact">
             <h2>CONTACT &amp; LOCATION :</h2>

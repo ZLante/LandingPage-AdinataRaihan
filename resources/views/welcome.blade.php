@@ -23,8 +23,6 @@
         body.landing-dark .topbar { background: #1596b8; }
         body.landing-dark .navbar, body.landing-dark .card, body.landing-dark .logo-polnep { background: var(--landing-surface) !important; color: var(--landing-text); }
         body.landing-dark .search-section { background: #182331; }
-        body.landing-dark .menu-card { background: var(--landing-bg); }
-        body.landing-dark .menu-card .card { background: var(--landing-panel); }
         body.landing-dark footer { background: #182331 !important; }
         body.landing-dark .latest-news h2, body.landing-dark .card h4, body.landing-dark .card h6, body.landing-dark .card p { color: var(--landing-text) !important; }
         body.landing-dark .card-body p { color: var(--landing-muted) !important; }
@@ -38,10 +36,50 @@
         .landing-account { display: flex; align-items: center; gap: 7px; margin-left: 12px; white-space: nowrap; }
         .landing-avatar { width: 28px; height: 28px; display: grid; place-items: center; border-radius: 50%; color: white; background: #ef7b32; font-size: 13px; font-weight: 700; object-fit: cover; }
         .landing-account-menu { position: relative; }
-        .landing-account-menu form { position: absolute; top: calc(100% + 4px); right: 0; z-index: 10; display: none; padding: 5px; border-radius: 5px; background: #1f2d4c; box-shadow: 0 5px 14px rgba(0, 0, 0, .25); }
-        .landing-account-menu:hover form, .landing-account-menu:focus-within form { display: block; }
+        .landing-account-toggle { display: flex; align-items: center; gap: 7px; border: 0; padding: 4px 0; color: inherit; background: transparent; }
+        .landing-account-menu .dropdown-menu { right: 0; left: auto; min-width: 190px; margin-top: 8px; padding: 7px; border: 0; box-shadow: 0 8px 22px rgba(0, 0, 0, .18); }
+        .landing-account-menu .dropdown-item { display: flex; align-items: center; gap: 9px; border-radius: 5px; padding: 9px 10px; color: #1d2733; font-size: 14px; }
+        .landing-account-menu .dropdown-item:hover, .landing-account-menu .dropdown-item:focus { color: #075373; background: #eaf6fb; }
+        .landing-account-menu .dropdown-divider { margin: 5px 0; }
         .landing-theme { border: 0; padding: 5px 9px; color: inherit; background: transparent; font-size: 18px; cursor: pointer; }
-        .landing-logout { border: 0; padding: 5px 9px; color: inherit; background: transparent; }
+        .landing-logout { width: 100%; border: 0; padding: 9px 10px; text-align: left; background: transparent; }
+        .landing-explore { padding: 4.5rem 0; background: #f2f7fb; }
+        .landing-faq { padding: 4rem 0; background: #fff; }
+        .landing-faq .accordion-item { border-radius: 8px; margin-bottom: 10px; overflow: hidden; }
+        .landing-spotlight { padding: 4rem 0; background: linear-gradient(135deg, #eaf8ff 0%, #f7fafd 50%, #eef9f7 100%); }
+        .landing-spotlight .section-tag { color: #0d6efd; font-size: .75rem; letter-spacing: .12em; text-transform: uppercase; font-weight: 700; }
+        .landing-spotlight-card { border: 0; border-radius: 1.25rem; overflow: hidden; box-shadow: 0 20px 40px rgba(15, 42, 73, .08); }
+        .landing-spotlight-card img { height: 100%; min-height: 360px; object-fit: cover; }
+        .landing-spotlight-actions { display: flex; align-items: center; gap: .75rem; flex-wrap: wrap; }
+        .landing-spotlight-actions .btn { min-height: 48px; display: inline-flex; align-items: center; justify-content: center; gap: .5rem; padding: .7rem 1.15rem; border-radius: .65rem; font-size: .95rem; line-height: 1.25; }
+        .landing-spotlight-actions .btn-primary:hover { transform: translateY(-2px); }
+        .landing-spotlight-actions .btn-outline-primary:hover { transform: translateY(-2px); }
+        .landing-stat { border: 0; border-radius: 1rem; background: #fff; box-shadow: 0 12px 25px rgba(15, 42, 73, .06); }
+        .landing-stat .stat-number { font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 800; color: #0c5c8d; }
+        .landing-feature-card { height: 100%; border: 0; border-radius: 1rem; box-shadow: 0 10px 25px rgba(15, 42, 73, .06); }
+        .landing-feature-icon { display: inline-flex; align-items: center; justify-content: center; width: 52px; height: 52px; border-radius: 14px; background: rgba(13,110,253,.09); color: #0d6efd; font-size: 1.5rem; }
+        .landing-partners { padding: 4rem 0; background: #f7f9fc; }
+        .landing-partner-item { display: flex; align-items: center; gap: 1rem; min-height: 130px; height: 100%; padding: 1.25rem; border-radius: 1rem; background: #fff; border: 1px solid rgba(13,110,253,.08); box-shadow: 0 10px 24px rgba(15,42,73,.05); }
+        .landing-partner-mark { width: 58px; height: 58px; flex: 0 0 58px; display: grid; place-items: center; border-radius: 17px; font-size: 1.55rem; }
+        .landing-partner-mark img { width: 100%; height: 100%; border-radius: inherit; object-fit: contain; }
+        .landing-partner-item h3 { margin: 0; color: #1b3b5a; font-size: 1rem; font-weight: 750; }
+        .landing-partner-item p { margin: .3rem 0 0; color: #68798b; font-size: .82rem; }
+        .landing-partner-link { display: inline-block; margin-top: .5rem; color: #0d6efd; font-size: .82rem; font-weight: 650; text-decoration: none; }
+        .landing-partner-blue .landing-partner-mark { color: #1764a0; background: #e5f1ff; }
+        .landing-partner-teal .landing-partner-mark { color: #087c83; background: #e2f6f3; }
+        .landing-partner-orange .landing-partner-mark { color: #b66a13; background: #fff1db; }
+        .landing-partner-purple .landing-partner-mark { color: #5a3b8c; background: #f0eafb; }
+        .landing-partner-red .landing-partner-mark { color: #aa3341; background: #ffebed; }
+        .landing-partner-green .landing-partner-mark { color: #267344; background: #e4f5e9; }
+        body.landing-dark .landing-explore, body.landing-dark .landing-faq, body.landing-dark .landing-spotlight { background: var(--landing-bg); }
+        body.landing-dark .landing-stat, body.landing-dark .landing-feature-card, body.landing-dark .landing-partner-item { background: var(--landing-surface) !important; color: var(--landing-text); }
+        body.landing-dark .landing-partner-item h3 { color: var(--landing-text); }
+        body.landing-dark .landing-partner-item p { color: var(--landing-muted); }
+        body.landing-dark .landing-faq p, body.landing-dark .landing-feature-card p, body.landing-dark .landing-stat p { color: var(--landing-muted) !important; }
+        body.landing-dark .landing-partners { background: var(--landing-bg); }
+        body.landing-dark .landing-faq .accordion-item { color: var(--landing-text); background: var(--landing-surface); }
+        body.landing-dark .landing-faq .accordion-button { color: var(--landing-text); background: var(--landing-surface); }
+        body.landing-dark .landing-faq .accordion-button::after { filter: invert(1); }
         @media (max-width: 991px) { .landing-account { margin: 8px 0 0; } }
     </style>
 
@@ -67,15 +105,15 @@
 
             <div class="col-md-6">
 
-                <a href="#">
+                <a href="https://web.facebook.com/mediapolnep/mentions/?_rdc=1&_rdr#" target="_blank" rel="noopener noreferrer" aria-label="POLNEP on Facebook">
                     <i class="bi bi-facebook"></i>
                 </a>
 
-                <a href="#">
+                <a href="https://www.instagram.com/mediapolnep/?hl=en" target="_blank" rel="noopener noreferrer" aria-label="POLNEP on Instagram">
                     <i class="bi bi-instagram"></i>
                 </a>
 
-                <a href="#">
+                <a href="https://www.youtube.com/@mediapolnep" target="_blank" rel="noopener noreferrer" aria-label="POLNEP on YouTube">
                     <i class="bi bi-youtube"></i>
                 </a>
 
@@ -129,6 +167,10 @@
                     </a>
                 </li>
 
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('about') }}">ABOUT</a>
+                </li>
+
                 <li class="nav-item dropdown">
 
                     <a class="nav-link dropdown-toggle"
@@ -142,7 +184,7 @@
                     <ul class="dropdown-menu">
 
                         <li>
-                            <a class="dropdown-item" href="#">
+                            <a class="dropdown-item" href="{{ route('about') }}">
                                 Sejarah
                             </a>
                         </li>
@@ -152,9 +194,21 @@
                                 Visi Misi
                             </a>
                         </li>
-
+                        <li>
+                            <a class="dropdown-item" href="{{ route('organization.index') }}">
+                                Organization Structure
+                            </a>
+                        </li>
                     </ul>
 
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('partnership') }}">PARTNERSHIP</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('programs') }}">PROGRAMS</a>
                 </li>
 
                 <li class="nav-item dropdown">
@@ -216,6 +270,14 @@
                 </li>
 
                 <li class="nav-item">
+                    <a class="nav-link" href="{{ route('contact') }}">CONTACT</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#faq">FAQ</a>
+                </li>
+
+                <li class="nav-item">
                     <button class="landing-theme" id="landing-theme-toggle" type="button" aria-label="Switch to dark mode" title="Switch theme">
                         <i class="bi bi-moon"></i>
                     </button>
@@ -223,19 +285,28 @@
 
                 @auth
                     <li class="nav-item landing-account">
-                        <div class="landing-account-menu">
-                            <a class="landing-account" href="{{ route('dashboard') }}" title="Open dashboard">
+                        <div class="landing-account-menu dropdown">
+                            <button class="landing-account-toggle dropdown-toggle" id="landing-account-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Open account menu">
                                 @if(auth()->user()->profile_photo)
                                     <img class="landing-avatar" src="{{ asset('storage/' . auth()->user()->profile_photo) }}" alt="{{ auth()->user()->name }}">
                                 @else
                                     <span class="landing-avatar" aria-hidden="true">{{ $landingInitial }}</span>
                                 @endif
                                 <span>{{ auth()->user()->name }}</span>
-                            </a>
-                            <form action="{{ route('logout') }}" method="POST">
-                                @csrf
-                                <button class="nav-link landing-logout" type="submit">LOGOUT</button>
-                            </form>
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="landing-account-toggle">
+                                <li><a class="dropdown-item" href="{{ route('account.settings') }}"><i class="bi bi-person-gear"></i> My Account</a></li>
+                                @if(auth()->user()->role === 'admin')
+                                    <li><a class="dropdown-item" href="{{ route('dashboard') }}"><i class="bi bi-speedometer2"></i> Admin Dashboard</a></li>
+                                @endif
+                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <form action="{{ route('logout') }}" method="POST">
+                                        @csrf
+                                        <button class="dropdown-item landing-logout" type="submit"><i class="bi bi-box-arrow-right"></i> Log Out</button>
+                                    </form>
+                                </li>
+                            </ul>
                         </div>
                     </li>
                 @else
@@ -317,124 +388,127 @@
 
 </section>
 
-<!-- ========================= -->
-<!-- MENU CARD -->
-<!-- ========================= -->
+<section class="landing-spotlight">
+    <div class="container">
+        <div class="row align-items-center g-4">
+            <div class="col-lg-6">
+                <div class="section-tag mb-3">Campus Collaboration</div>
+                <h2 class="fw-bold display-6 mb-3">A stronger future through trusted partnerships</h2>
+                <p class="lead text-muted mb-4">POLNEP continues to build alliances with industry, public institutions, and professional networks to improve teaching, innovation, and real-world learning outcomes.</p>
+                <div class="row g-3 mb-4">
+                    <div class="col-sm-4">
+                        <div class="card landing-stat h-100">
+                            <div class="card-body text-center">
+                                <div class="stat-number">{{ $partners->count() }}</div>
+                                <p class="mb-0">Collaboration areas</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="card landing-stat h-100">
+                            <div class="card-body text-center">
+                                <div class="stat-number">POLNEP</div>
+                                <p class="mb-0">Official source</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="card landing-stat h-100">
+                            <div class="card-body text-center">
+                                <div class="stat-number">Live</div>
+                                <p class="mb-0">Admin-managed list</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="landing-spotlight-actions">
+                    <a href="{{ route('partnership') }}" class="btn btn-primary">Explore Partnerships <i class="bi bi-arrow-right" aria-hidden="true"></i></a>
+                    <a href="{{ route('programs') }}" class="btn btn-outline-primary">View Programs</a>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="card landing-spotlight-card">
+                    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=80" alt="Students and collaboration leaders" class="img-fluid w-100">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
-<section class="menu-card">
+<section class="landing-explore">
+    <div class="container">
+        <div class="text-center mb-4">
+            <p class="text-uppercase text-primary fw-semibold mb-2">Discover POLNEP</p>
+            <h2 class="fw-bold">Learn more about our campus</h2>
+            <p class="text-muted mb-0">Explore our goals, organization, and helpful information.</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <article class="card landing-feature-card shadow-sm">
+                    <div class="card-body">
+                        <span class="landing-feature-icon"><i class="bi bi-bullseye" aria-hidden="true"></i></span>
+                        <h3 class="h5 fw-bold mt-3">Vision &amp; Mission</h3>
+                        <p class="text-muted">Read the campus vision and the mission that guides our work.</p>
+                        <a class="btn btn-outline-primary" href="{{ route('visi-misi') }}">View Vision &amp; Mission</a>
+                    </div>
+                </article>
+            </div>
+            <div class="col-md-4">
+                <article class="card landing-feature-card shadow-sm">
+                    <div class="card-body">
+                        <span class="landing-feature-icon"><i class="bi bi-diagram-3" aria-hidden="true"></i></span>
+                        <h3 class="h5 fw-bold mt-3">Organization Structure</h3>
+                        <p class="text-muted">See the organizational chart and the people serving our campus.</p>
+                        <a class="btn btn-outline-primary" href="{{ route('organization.index') }}">View Structure</a>
+                    </div>
+                </article>
+            </div>
+            <div class="col-md-4">
+                <article class="card landing-feature-card shadow-sm">
+                    <div class="card-body">
+                        <span class="landing-feature-icon"><i class="bi bi-patch-question" aria-hidden="true"></i></span>
+                        <h3 class="h5 fw-bold mt-3">Frequently Asked Questions</h3>
+                        <p class="text-muted">Find quick answers to common questions about POLNEP.</p>
+                        <a class="btn btn-outline-primary" href="#faq">Browse FAQs</a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </div>
+</section>
 
-<div class="container">
-
-<div class="row g-4">
-
-<div class="col-lg-3">
-
-<div class="card h-100 shadow">
-
-<div class="card-body">
-
-<i class="bi bi-file-earmark-text display-5"></i>
-
-<h5 class="mt-3">
-
-SIAKAD Cloud
-
-</h5>
-
-<p>
-
-Academic Information System
-
-</p>
-
-</div>
-
-</div>
-
-</div>
-
-<div class="col-lg-3">
-
-<div class="card h-100 shadow">
-
-<div class="card-body">
-
-<i class="bi bi-globe display-5"></i>
-
-<h5>
-
-Online Application
-
-</h5>
-
-<p>
-
-Online Registration
-
-</p>
-
-</div>
-
-</div>
-
-</div>
-
-<div class="col-lg-3">
-
-<div class="card h-100 shadow">
-
-<div class="card-body">
-
-<i class="bi bi-person-plus display-5"></i>
-
-<h5>
-
-PMB
-
-</h5>
-
-<p>
-
-New Student Admission
-
-</p>
-
-</div>
-
-</div>
-
-</div>
-
-<div class="col-lg-3">
-
-<div class="card h-100 shadow">
-
-<div class="card-body">
-
-<i class="bi bi-database display-5"></i>
-
-<h5>
-
-Repository
-
-</h5>
-
-<p>
-
-Digital Repository
-
-</p>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
+<section class="landing-partners">
+    <div class="container">
+        <div class="text-center mb-4">
+            <p class="text-uppercase text-primary fw-semibold mb-2">Institutional network</p>
+            <h2 class="fw-bold">Our academic and industry network</h2>
+            <p class="text-muted mb-0">Collaboration across government, education, business, industry, and professional networks.</p>
+        </div>
+        <div class="row g-3">
+            @forelse($partners as $partner)
+                <div class="col-lg-4 col-md-6">
+                    <article class="landing-partner-item landing-partner-{{ $partner->theme }}">
+                        <span class="landing-partner-mark">
+                            @if($partner->logo)
+                                <img src="{{ asset('storage/' . $partner->logo) }}" alt="{{ $partner->name }} logo">
+                            @else
+                                <i class="{{ $partner->icon }}" aria-hidden="true"></i>
+                            @endif
+                        </span>
+                        <div>
+                            <h3>{{ $partner->name }}</h3>
+                            <p>{{ $partner->description ?: 'POLNEP collaboration partner' }}</p>
+                            @if($partner->website)
+                                <a class="landing-partner-link" href="{{ $partner->website }}" target="_blank" rel="noopener noreferrer">Learn more <i class="bi bi-arrow-up-right" aria-hidden="true"></i></a>
+                            @endif
+                        </div>
+                    </article>
+                </div>
+            @empty
+                <div class="col-12"><p class="text-center text-muted mb-0">Partnership information will be available soon.</p></div>
+            @endforelse
+        </div>
+    </div>
 </section>
 <!-- ========================= -->
 <!-- LATEST NEWS -->
@@ -655,6 +729,32 @@ Digital Repository
     </div>
 </section>
 
+<section class="landing-faq" id="faq">
+    <div class="container">
+        <div class="text-center mb-4">
+            <p class="text-uppercase text-primary fw-semibold mb-2">Need help?</p>
+            <h2 class="fw-bold">Frequently Asked Questions</h2>
+            <p class="text-muted mb-0">A few quick answers for students and visitors.</p>
+        </div>
+        <div class="accordion" id="landingFaq">
+            @forelse($faqs as $faq)
+                <div class="accordion-item border shadow-sm">
+                    <h3 class="accordion-header" id="faq-heading-{{ $faq->id }}">
+                        <button class="accordion-button {{ $loop->first ? '' : 'collapsed' }}" type="button" data-bs-toggle="collapse" data-bs-target="#faq-answer-{{ $faq->id }}" aria-expanded="{{ $loop->first ? 'true' : 'false' }}" aria-controls="faq-answer-{{ $faq->id }}">
+                            {{ $faq->question }}
+                        </button>
+                    </h3>
+                    <div id="faq-answer-{{ $faq->id }}" class="accordion-collapse collapse {{ $loop->first ? 'show' : '' }}" aria-labelledby="faq-heading-{{ $faq->id }}" data-bs-parent="#landingFaq">
+                        <div class="accordion-body">{{ $faq->answer }}</div>
+                    </div>
+                </div>
+            @empty
+                <p class="text-center text-muted">There are no frequently asked questions yet.</p>
+            @endforelse
+        </div>
+    </div>
+</section>
+
 <!-- ========================= -->
 <!-- FOOTER -->
 <!-- ========================= -->
@@ -672,15 +772,15 @@ Digital Repository
 
     <div class="social-icons">
 
-        <a href="#" class="social-btn facebook">
+        <a href="https://web.facebook.com/mediapolnep/mentions/?_rdc=1&_rdr#" class="social-btn facebook" aria-label="POLNEP on Facebook" target="_blank" rel="noopener noreferrer">
             <i class="bi bi-facebook"></i>
         </a>
 
-        <a href="#" class="social-btn youtube">
+        <a href="https://www.youtube.com/@mediapolnep" class="social-btn youtube" aria-label="POLNEP on YouTube" target="_blank" rel="noopener noreferrer">
             <i class="bi bi-youtube"></i>
         </a>
 
-        <a href="#" class="social-btn instagram">
+        <a href="https://www.instagram.com/mediapolnep/?hl=en" class="social-btn instagram" aria-label="POLNEP on Instagram" target="_blank" rel="noopener noreferrer">
             <i class="bi bi-instagram"></i>
         </a>
 
@@ -707,15 +807,15 @@ Digital Repository
 
                 <ul class="list-unstyled">
 
-                    <li><a href="#" class="text-white text-decoration-none">Home</a></li>
+                    <li><a href="{{ route('home') }}" class="text-white text-decoration-none">Home</a></li>
 
-                    <li><a href="#" class="text-white text-decoration-none">Profile</a></li>
+                    <li><a href="{{ route('about') }}" class="text-white text-decoration-none">Profile</a></li>
 
-                    <li><a href="#" class="text-white text-decoration-none">Jurusan</a></li>
+                    <li><a href="{{ route('programs') }}" class="text-white text-decoration-none">Programs</a></li>
 
-                    <li><a href="#" class="text-white text-decoration-none">Prestasi</a></li>
+                    <li><a href="{{ route('partnership') }}" class="text-white text-decoration-none">Partnership</a></li>
 
-                    <li><a href="#" class="text-white text-decoration-none">Informasi</a></li>
+                    <li><a href="{{ route('contact') }}" class="text-white text-decoration-none">Contact</a></li>
 
                 </ul>
             </div>
@@ -754,15 +854,9 @@ Digital Repository
 
                 </p>
 
-                <div class="fs-4">
-
-                    <i class="bi bi-facebook me-3"></i>
-
-                    <i class="bi bi-instagram me-3"></i>
-
-                    <i class="bi bi-youtube"></i>
-
-                </div>
+                <a href="https://web.facebook.com/mediapolnep/mentions/?_rdc=1&_rdr#" class="text-white me-3" aria-label="POLNEP on Facebook" target="_blank" rel="noopener noreferrer"><i class="bi bi-facebook fs-4"></i></a>
+                <a href="https://www.instagram.com/mediapolnep/?hl=en" class="text-white me-3" aria-label="POLNEP on Instagram" target="_blank" rel="noopener noreferrer"><i class="bi bi-instagram fs-4"></i></a>
+                <a href="https://www.youtube.com/@mediapolnep" class="text-white" aria-label="POLNEP on YouTube" target="_blank" rel="noopener noreferrer"><i class="bi bi-youtube fs-4"></i></a>
             </div>
         </div>
 
