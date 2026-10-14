@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ app()->getLocale() }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +9,10 @@
     <style>
         body { font-family: 'Segoe UI', sans-serif; background: #f5f8fb; color: #1b2a3a; }
         .topbar { background: #0b7ea5; color: white; padding: 10px 0; }
+        .language-toggle { display: inline-flex; align-items: center; gap: 5px; margin: 0; }
+        .language-toggle-button { display: inline-flex; align-items: center; justify-content: center; padding: 4px; border: 1px solid transparent; border-radius: 5px; background: transparent; opacity: .62; cursor: pointer; }
+        .language-toggle-button:hover, .language-toggle-button:focus-visible, .language-toggle-button.active { border-color: rgba(255,255,255,.65); opacity: 1; }
+        .language-toggle-button img { display: block; object-fit: cover; }
         .navbar { background: white; box-shadow: 0 3px 12px rgba(0,0,0,.06); }
         .brand img { max-width: 180px; }
         .page-hero { background: linear-gradient(135deg, #0f6d88, #1d8f9d); color: #fff; padding: 90px 0 70px; }
@@ -28,8 +32,7 @@
                 <span><i class="bi bi-youtube"></i></span>
             </div>
             <div>
-                <img src="{{ asset('images/id.png') }}" width="22" class="me-2" alt="ID">
-                <img src="{{ asset('images/us.png') }}" width="22" alt="US">
+                @include('components.language-toggle')
             </div>
         </div>
     </div>
@@ -38,11 +41,11 @@
         <div class="container">
             <a class="brand" href="{{ route('home') }}"><img src="{{ asset('images/logo.png') }}" alt="POLNEP"></a>
             <div class="ms-auto d-flex gap-3 align-items-center">
-                <a class="text-decoration-none text-dark fw-semibold" href="{{ route('home') }}">Home</a>
-                <a class="text-decoration-none text-dark fw-semibold" href="{{ route('about') }}">About</a>
-                <a class="text-decoration-none text-dark fw-semibold" href="{{ route('partnership') }}">Partnership</a>
-                <a class="text-decoration-none text-dark fw-semibold" href="{{ route('programs') }}">Programs</a>
-                <a class="text-decoration-none text-dark fw-semibold" href="{{ route('contact') }}">Contact</a>
+                <a class="text-decoration-none text-dark fw-semibold" href="{{ route('home') }}">{{ __('Home') }}</a>
+                <a class="text-decoration-none text-dark fw-semibold" href="{{ route('about') }}">{{ __('About') }}</a>
+                <a class="text-decoration-none text-dark fw-semibold" href="{{ route('partnership') }}">{{ __('Partnership') }}</a>
+                <a class="text-decoration-none text-dark fw-semibold" href="{{ route('programs') }}">{{ __('Programs') }}</a>
+                <a class="text-decoration-none text-dark fw-semibold" href="{{ route('contact') }}">{{ __('Contact') }}</a>
             </div>
         </div>
     </nav>
@@ -51,17 +54,17 @@
         <div class="container">
             <div class="row align-items-center g-4">
                 <div class="col-lg-7">
-                    <p class="text-uppercase fw-bold text-light opacity-75 mb-2">Academic programs</p>
-                    <h1 class="display-5 fw-bold mb-3">Practical, focused, and career-oriented study tracks</h1>
-                    <p class="lead mb-0 text-light opacity-75">Our academic strategy blends technical mastery, applied projects, and industry exposure so students graduate with confidence and relevance.</p>
+                    <p class="text-uppercase fw-bold text-light opacity-75 mb-2">{{ __('Academic programs') }}</p>
+                    <h1 class="display-5 fw-bold mb-3">{{ __('Practical, focused, and career-oriented study tracks') }}</h1>
+                    <p class="lead mb-0 text-light opacity-75">{{ __('Our academic strategy blends technical mastery, applied projects, and industry exposure so students graduate with confidence and relevance.') }}</p>
                 </div>
                 <div class="col-lg-5">
                     <div class="highlight-card p-4">
-                        <h4 class="section-title mb-3">Program highlights</h4>
+                        <h4 class="section-title mb-3">{{ __('Program highlights') }}</h4>
                         <ul class="list-unstyled mb-0">
-                            <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Competence-based curriculum</li>
-                            <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Project and internship experience</li>
-                            <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Professional mentoring support</li>
+                            <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>{{ __('Competence-based curriculum') }}</li>
+                            <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>{{ __('Project and internship experience') }}</li>
+                            <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>{{ __('Professional mentoring support') }}</li>
                         </ul>
                     </div>
                 </div>
@@ -74,22 +77,22 @@
             <div class="col-lg-4">
                 <div class="program-box">
                     <i class="bi bi-tools fs-2 text-primary"></i>
-                    <h4 class="mt-3 section-title">Engineering</h4>
-                    <p class="mb-0">Hands-on learning in civil, mechanical, and electrical technology with applied laboratory work.</p>
+                    <h4 class="mt-3 section-title">{{ __('Engineering') }}</h4>
+                    <p class="mb-0">{{ __('Hands-on learning in civil, mechanical, and electrical technology with applied laboratory work.') }}</p>
                 </div>
             </div>
             <div class="col-lg-4">
                 <div class="program-box">
                     <i class="bi bi-laptop fs-2 text-primary"></i>
-                    <h4 class="mt-3 section-title">Information Technology</h4>
-                    <p class="mb-0">Front-end, back-end, network, and digital system skills built around modern project-based tasks.</p>
+                    <h4 class="mt-3 section-title">{{ __('Information Technology') }}</h4>
+                    <p class="mb-0">{{ __('Front-end, back-end, network, and digital system skills built around modern project-based tasks.') }}</p>
                 </div>
             </div>
             <div class="col-lg-4">
                 <div class="program-box">
                     <i class="bi bi-lightning-charge fs-2 text-primary"></i>
-                    <h4 class="mt-3 section-title">Innovation</h4>
-                    <p class="mb-0">Technology application and startup-oriented initiatives that connect ideas to real-world impact.</p>
+                    <h4 class="mt-3 section-title">{{ __('Innovation') }}</h4>
+                    <p class="mb-0">{{ __('Technology application and startup-oriented initiatives that connect ideas to real-world impact.') }}</p>
                 </div>
             </div>
         </div>
@@ -97,12 +100,12 @@
         <div class="highlight-card p-4 p-lg-5">
             <div class="row g-4 align-items-center">
                 <div class="col-lg-6">
-                    <h2 class="section-title mb-3">Program learning experience</h2>
-                    <p>Students gain more than classroom theory through industry visits, practical labs, and collaborative projects that mirror workplace expectations.</p>
+                    <h2 class="section-title mb-3">{{ __('Program learning experience') }}</h2>
+                    <p>{{ __('Students gain more than classroom theory through industry visits, practical labs, and collaborative projects that mirror workplace expectations.') }}</p>
                     <div class="d-flex flex-column gap-2">
-                        <div><i class="bi bi-check2-circle text-success me-2"></i>Industry standard equipment and labs</div>
-                        <div><i class="bi bi-check2-circle text-success me-2"></i>Career coaching and mentoring</div>
-                        <div><i class="bi bi-check2-circle text-success me-2"></i>Project-based and team-based learning</div>
+                        <div><i class="bi bi-check2-circle text-success me-2"></i>{{ __('Industry standard equipment and labs') }}</div>
+                        <div><i class="bi bi-check2-circle text-success me-2"></i>{{ __('Career coaching and mentoring') }}</div>
+                        <div><i class="bi bi-check2-circle text-success me-2"></i>{{ __('Project-based and team-based learning') }}</div>
                     </div>
                 </div>
                 <div class="col-lg-6">
@@ -117,7 +120,7 @@
             <div class="row g-4">
                 <div class="col-lg-4">
                     <h5 class="fw-bold mb-3">POLNEP</h5>
-                    <p class="mb-3 text-light opacity-75">Empowering students with skills, confidence, and practical readiness.</p>
+                    <p class="mb-3 text-light opacity-75">{{ __('Empowering students with skills, confidence, and practical readiness.') }}</p>
                     <div>
                         <a class="social-btn" href="https://web.facebook.com/mediapolnep/mentions/?_rdc=1&_rdr#" aria-label="POLNEP on Facebook" target="_blank" rel="noopener noreferrer"><i class="bi bi-facebook"></i></a>
                         <a class="social-btn" href="https://www.instagram.com/mediapolnep/?hl=en" aria-label="POLNEP on Instagram" target="_blank" rel="noopener noreferrer"><i class="bi bi-instagram"></i></a>
@@ -125,16 +128,16 @@
                     </div>
                 </div>
                 <div class="col-lg-4">
-                    <h5 class="fw-bold mb-3">Quick links</h5>
+                    <h5 class="fw-bold mb-3">{{ __('Quick Links') }}</h5>
                     <ul class="list-unstyled">
-                        <li class="mb-2"><a href="{{ route('home') }}" class="text-decoration-none text-light opacity-75">Home</a></li>
-                        <li class="mb-2"><a href="{{ route('about') }}" class="text-decoration-none text-light opacity-75">About</a></li>
-                        <li class="mb-2"><a href="{{ route('partnership') }}" class="text-decoration-none text-light opacity-75">Partnership</a></li>
-                        <li class="mb-2"><a href="{{ route('contact') }}" class="text-decoration-none text-light opacity-75">Contact</a></li>
+                        <li class="mb-2"><a href="{{ route('home') }}" class="text-decoration-none text-light opacity-75">{{ __('Home') }}</a></li>
+                        <li class="mb-2"><a href="{{ route('about') }}" class="text-decoration-none text-light opacity-75">{{ __('About') }}</a></li>
+                        <li class="mb-2"><a href="{{ route('partnership') }}" class="text-decoration-none text-light opacity-75">{{ __('Partnership') }}</a></li>
+                        <li class="mb-2"><a href="{{ route('contact') }}" class="text-decoration-none text-light opacity-75">{{ __('Contact') }}</a></li>
                     </ul>
                 </div>
                 <div class="col-lg-4">
-                    <h5 class="fw-bold mb-3">Contact</h5>
+                    <h5 class="fw-bold mb-3">{{ __('Contact') }}</h5>
                     <p class="mb-2 text-light opacity-75"><i class="bi bi-geo-alt-fill me-2"></i>Jl. Ahmad Yani, Pontianak</p>
                     <p class="mb-2 text-light opacity-75"><i class="bi bi-envelope-fill me-2"></i>programs@polnep.ac.id</p>
                     <p class="mb-0 text-light opacity-75"><i class="bi bi-telephone-fill me-2"></i>+62 0561 736180</p>

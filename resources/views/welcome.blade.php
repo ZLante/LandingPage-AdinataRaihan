@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ app()->getLocale() }}">
 <head>
 
     <meta charset="UTF-8">
@@ -33,6 +33,10 @@
         .legacy-news { display: none; }
         .live-news .card-img-top { height: 190px; object-fit: cover; }
         .live-news .news-empty { min-height: 180px; display: grid; place-items: center; }
+        .language-toggle { display: inline-flex; align-items: center; gap: 5px; margin: 0; }
+        .language-toggle-button { display: inline-flex; align-items: center; justify-content: center; padding: 4px; border: 1px solid transparent; border-radius: 5px; background: transparent; opacity: .62; cursor: pointer; }
+        .language-toggle-button:hover, .language-toggle-button:focus-visible, .language-toggle-button.active { border-color: rgba(255,255,255,.65); opacity: 1; }
+        .language-toggle-button img { display: block; object-fit: cover; }
         .landing-account { display: flex; align-items: center; gap: 7px; margin-left: 12px; white-space: nowrap; }
         .landing-avatar { width: 28px; height: 28px; display: grid; place-items: center; border-radius: 50%; color: white; background: #ef7b32; font-size: 13px; font-weight: 700; object-fit: cover; }
         .landing-account-menu { position: relative; }
@@ -121,9 +125,7 @@
 
             <div class="col-md-6 text-end">
 
-                <img src="images/id.png" width="22">
-
-                <img src="images/us.png" width="22">
+                @include('components.language-toggle')
 
             </div>
 
@@ -163,12 +165,12 @@
 
                 <li class="nav-item">
                     <a class="nav-link active" href="#">
-                        HOME
+                        {{ __('Home') }}
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('about') }}">ABOUT</a>
+                    <a class="nav-link" href="{{ route('about') }}">{{ __('About') }}</a>
                 </li>
 
                 <li class="nav-item dropdown">
@@ -177,7 +179,7 @@
                     href="#"
                     data-bs-toggle="dropdown">
 
-                        PROFILE
+                        {{ __('Profile') }}
 
                     </a>
 
@@ -185,18 +187,18 @@
 
                         <li>
                             <a class="dropdown-item" href="{{ route('about') }}">
-                                Sejarah
+                                {{ __('History') }}
                             </a>
                         </li>
 
                         <li>
                             <a class="dropdown-item" href="{{ route('visi-misi') }}">
-                                Visi Misi
+                                {{ __('Vision & Mission') }}
                             </a>
                         </li>
                         <li>
                             <a class="dropdown-item" href="{{ route('organization.index') }}">
-                                Organization Structure
+                                {{ __('Organization Structure') }}
                             </a>
                         </li>
                     </ul>
@@ -204,11 +206,11 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('partnership') }}">PARTNERSHIP</a>
+                    <a class="nav-link" href="{{ route('partnership') }}">{{ __('Partnership') }}</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('programs') }}">PROGRAMS</a>
+                    <a class="nav-link" href="{{ route('programs') }}">{{ __('Programs') }}</a>
                 </li>
 
                 <li class="nav-item dropdown">
@@ -217,7 +219,7 @@
                     href="#"
                     data-bs-toggle="dropdown">
 
-                        JURUSAN
+                        {{ __('Departments') }}
 
                     </a>
 
@@ -225,19 +227,19 @@
 
                         <li>
                             <a class="dropdown-item" href="#">
-                                Teknik Sipil
+                                {{ __('Civil Engineering') }}
                             </a>
                         </li>
 
                         <li>
                             <a class="dropdown-item" href="#">
-                                Teknik Mesin
+                                {{ __('Mechanical Engineering') }}
                             </a>
                         </li>
 
                         <li>
                             <a class="dropdown-item" href="#">
-                                Teknik Elektro
+                                {{ __('Electrical Engineering') }}
                             </a>
                         </li>
 
@@ -248,7 +250,7 @@
                 <li class="nav-item">
 
                     <a class="nav-link" href="#">
-                        PRESTASI
+                        {{ __('Achievements') }}
                     </a>
 
                 </li>
@@ -256,7 +258,7 @@
                 <li class="nav-item">
 
                     <a class="nav-link" href="#">
-                        INFORMASI
+                        {{ __('Information') }}
                     </a>
 
                 </li>
@@ -264,17 +266,17 @@
                 <li class="nav-item">
 
                     <a class="nav-link" href="#">
-                        AKREDITASI
+                        {{ __('Accreditation') }}
                     </a>
 
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('contact') }}">CONTACT</a>
+                    <a class="nav-link" href="{{ route('contact') }}">{{ __('Contact') }}</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="#faq">FAQ</a>
+                    <a class="nav-link" href="#faq">{{ __('Frequently Asked Questions') }}</a>
                 </li>
 
                 <li class="nav-item">
@@ -311,7 +313,7 @@
                     </li>
                 @else
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('login') }}">LOGIN</a>
+                        <a class="nav-link" href="{{ route('login') }}">{{ __('LOGIN') }}</a>
                     </li>
                 @endauth
 
@@ -353,7 +355,7 @@
                     <input
                     type="text"
                     class="form-control"
-                    placeholder="Search Here...">
+                    placeholder="{{ __('Search Here...') }}">
 
                     <button class="btn btn-primary">
 
@@ -392,15 +394,15 @@
     <div class="container">
         <div class="row align-items-center g-4">
             <div class="col-lg-6">
-                <div class="section-tag mb-3">Campus Collaboration</div>
-                <h2 class="fw-bold display-6 mb-3">A stronger future through trusted partnerships</h2>
-                <p class="lead text-muted mb-4">POLNEP continues to build alliances with industry, public institutions, and professional networks to improve teaching, innovation, and real-world learning outcomes.</p>
+                <div class="section-tag mb-3">{{ __('Campus Collaboration') }}</div>
+                <h2 class="fw-bold display-6 mb-3">{{ __('A stronger future through trusted partnerships') }}</h2>
+                <p class="lead text-muted mb-4">{{ __('POLNEP continues to build alliances with industry, public institutions, and professional networks to improve teaching, innovation, and real-world learning outcomes.') }}</p>
                 <div class="row g-3 mb-4">
                     <div class="col-sm-4">
                         <div class="card landing-stat h-100">
                             <div class="card-body text-center">
                                 <div class="stat-number">{{ $partners->count() }}</div>
-                                <p class="mb-0">Collaboration areas</p>
+                                <p class="mb-0">{{ __('Collaboration areas') }}</p>
                             </div>
                         </div>
                     </div>
@@ -408,22 +410,22 @@
                         <div class="card landing-stat h-100">
                             <div class="card-body text-center">
                                 <div class="stat-number">POLNEP</div>
-                                <p class="mb-0">Official source</p>
+                                <p class="mb-0">{{ __('Official source') }}</p>
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-4">
                         <div class="card landing-stat h-100">
                             <div class="card-body text-center">
-                                <div class="stat-number">Live</div>
-                                <p class="mb-0">Admin-managed list</p>
+                                <div class="stat-number">{{ __('Live') }}</div>
+                                <p class="mb-0">{{ __('Admin-managed list') }}</p>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="landing-spotlight-actions">
-                    <a href="{{ route('partnership') }}" class="btn btn-primary">Explore Partnerships <i class="bi bi-arrow-right" aria-hidden="true"></i></a>
-                    <a href="{{ route('programs') }}" class="btn btn-outline-primary">View Programs</a>
+                    <a href="{{ route('partnership') }}" class="btn btn-primary">{{ __('Explore Partnerships') }} <i class="bi bi-arrow-right" aria-hidden="true"></i></a>
+                    <a href="{{ route('programs') }}" class="btn btn-outline-primary">{{ __('View Programs') }}</a>
                 </div>
             </div>
             <div class="col-lg-6">
@@ -438,18 +440,18 @@
 <section class="landing-explore">
     <div class="container">
         <div class="text-center mb-4">
-            <p class="text-uppercase text-primary fw-semibold mb-2">Discover POLNEP</p>
-            <h2 class="fw-bold">Learn more about our campus</h2>
-            <p class="text-muted mb-0">Explore our goals, organization, and helpful information.</p>
+            <p class="text-uppercase text-primary fw-semibold mb-2">{{ __('Discover POLNEP') }}</p>
+            <h2 class="fw-bold">{{ __('Learn more about our campus') }}</h2>
+            <p class="text-muted mb-0">{{ __('Explore our goals, organization, and helpful information.') }}</p>
         </div>
         <div class="row g-4">
             <div class="col-md-4">
                 <article class="card landing-feature-card shadow-sm">
                     <div class="card-body">
                         <span class="landing-feature-icon"><i class="bi bi-bullseye" aria-hidden="true"></i></span>
-                        <h3 class="h5 fw-bold mt-3">Vision &amp; Mission</h3>
-                        <p class="text-muted">Read the campus vision and the mission that guides our work.</p>
-                        <a class="btn btn-outline-primary" href="{{ route('visi-misi') }}">View Vision &amp; Mission</a>
+                        <h3 class="h5 fw-bold mt-3">{{ __('Vision & Mission') }}</h3>
+                        <p class="text-muted">{{ __('Read the campus vision and the mission that guides our work.') }}</p>
+                        <a class="btn btn-outline-primary" href="{{ route('visi-misi') }}">{{ __('View Vision & Mission') }}</a>
                     </div>
                 </article>
             </div>
@@ -457,9 +459,9 @@
                 <article class="card landing-feature-card shadow-sm">
                     <div class="card-body">
                         <span class="landing-feature-icon"><i class="bi bi-diagram-3" aria-hidden="true"></i></span>
-                        <h3 class="h5 fw-bold mt-3">Organization Structure</h3>
-                        <p class="text-muted">See the organizational chart and the people serving our campus.</p>
-                        <a class="btn btn-outline-primary" href="{{ route('organization.index') }}">View Structure</a>
+                        <h3 class="h5 fw-bold mt-3">{{ __('Organization Structure') }}</h3>
+                        <p class="text-muted">{{ __('See the organizational chart and the people serving our campus.') }}</p>
+                        <a class="btn btn-outline-primary" href="{{ route('organization.index') }}">{{ __('View Structure') }}</a>
                     </div>
                 </article>
             </div>
@@ -467,9 +469,9 @@
                 <article class="card landing-feature-card shadow-sm">
                     <div class="card-body">
                         <span class="landing-feature-icon"><i class="bi bi-patch-question" aria-hidden="true"></i></span>
-                        <h3 class="h5 fw-bold mt-3">Frequently Asked Questions</h3>
-                        <p class="text-muted">Find quick answers to common questions about POLNEP.</p>
-                        <a class="btn btn-outline-primary" href="#faq">Browse FAQs</a>
+                        <h3 class="h5 fw-bold mt-3">{{ __('Frequently Asked Questions') }}</h3>
+                        <p class="text-muted">{{ __('Find quick answers to common questions about POLNEP.') }}</p>
+                        <a class="btn btn-outline-primary" href="#faq">{{ __('Browse FAQs') }}</a>
                     </div>
                 </article>
             </div>
@@ -480,9 +482,9 @@
 <section class="landing-partners">
     <div class="container">
         <div class="text-center mb-4">
-            <p class="text-uppercase text-primary fw-semibold mb-2">Institutional network</p>
-            <h2 class="fw-bold">Our academic and industry network</h2>
-            <p class="text-muted mb-0">Collaboration across government, education, business, industry, and professional networks.</p>
+            <p class="text-uppercase text-primary fw-semibold mb-2">{{ __('Institutional network') }}</p>
+            <h2 class="fw-bold">{{ __('Our academic and industry network') }}</h2>
+            <p class="text-muted mb-0">{{ __('Collaboration across government, education, business, industry, and professional networks.') }}</p>
         </div>
         <div class="row g-3">
             @forelse($partners as $partner)
@@ -496,16 +498,16 @@
                             @endif
                         </span>
                         <div>
-                            <h3>{{ $partner->name }}</h3>
-                            <p>{{ $partner->description ?: 'POLNEP collaboration partner' }}</p>
+                            <h3>{{ __($partner->name) }}</h3>
+                            <p>{{ $partner->description ? __($partner->description) : __('POLNEP collaboration partner') }}</p>
                             @if($partner->website)
-                                <a class="landing-partner-link" href="{{ $partner->website }}" target="_blank" rel="noopener noreferrer">Learn more <i class="bi bi-arrow-up-right" aria-hidden="true"></i></a>
+                                <a class="landing-partner-link" href="{{ $partner->website }}" target="_blank" rel="noopener noreferrer">{{ __('Learn more') }} <i class="bi bi-arrow-up-right" aria-hidden="true"></i></a>
                             @endif
                         </div>
                     </article>
                 </div>
             @empty
-                <div class="col-12"><p class="text-center text-muted mb-0">Partnership information will be available soon.</p></div>
+                <div class="col-12"><p class="text-center text-muted mb-0">{{ __('Partnership information will be available soon.') }}</p></div>
             @endforelse
         </div>
     </div>
@@ -517,15 +519,15 @@
 <section class="latest-news live-news py-5">
     <div class="container">
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2 class="fw-bold">Latest News</h2>
+            <h2 class="fw-bold">{{ __('Latest News') }}</h2>
             @auth
                 @if(auth()->user()->role === 'admin')
-                    <a href="{{ route('news.index') }}" class="btn btn-outline-primary">Manage News <i class="bi bi-arrow-right"></i></a>
+                    <a href="{{ route('news.index') }}" class="btn btn-outline-primary">{{ __('Manage News') }} <i class="bi bi-arrow-right"></i></a>
                 @endif
             @endauth
         </div>
         @if($latestNews->isEmpty())
-            <div class="card border-0 shadow-sm news-empty"><p class="text-muted mb-0">No published news yet.</p></div>
+            <div class="card border-0 shadow-sm news-empty"><p class="text-muted mb-0">{{ __('No published news yet.') }}</p></div>
         @else
             <div class="row g-4">
                 @foreach($latestNews as $news)
@@ -732,24 +734,24 @@
 <section class="landing-faq" id="faq">
     <div class="container">
         <div class="text-center mb-4">
-            <p class="text-uppercase text-primary fw-semibold mb-2">Need help?</p>
-            <h2 class="fw-bold">Frequently Asked Questions</h2>
-            <p class="text-muted mb-0">A few quick answers for students and visitors.</p>
+            <p class="text-uppercase text-primary fw-semibold mb-2">{{ __('Need help?') }}</p>
+            <h2 class="fw-bold">{{ __('Frequently Asked Questions') }}</h2>
+            <p class="text-muted mb-0">{{ __('A few quick answers for students and visitors.') }}</p>
         </div>
         <div class="accordion" id="landingFaq">
             @forelse($faqs as $faq)
                 <div class="accordion-item border shadow-sm">
                     <h3 class="accordion-header" id="faq-heading-{{ $faq->id }}">
                         <button class="accordion-button {{ $loop->first ? '' : 'collapsed' }}" type="button" data-bs-toggle="collapse" data-bs-target="#faq-answer-{{ $faq->id }}" aria-expanded="{{ $loop->first ? 'true' : 'false' }}" aria-controls="faq-answer-{{ $faq->id }}">
-                            {{ $faq->question }}
+                            {{ __($faq->question) }}
                         </button>
                     </h3>
                     <div id="faq-answer-{{ $faq->id }}" class="accordion-collapse collapse {{ $loop->first ? 'show' : '' }}" aria-labelledby="faq-heading-{{ $faq->id }}" data-bs-parent="#landingFaq">
-                        <div class="accordion-body">{{ $faq->answer }}</div>
+                        <div class="accordion-body">{{ __($faq->answer) }}</div>
                     </div>
                 </div>
             @empty
-                <p class="text-center text-muted">There are no frequently asked questions yet.</p>
+                <p class="text-center text-muted">{{ __('There are no frequently asked questions yet.') }}</p>
             @endforelse
         </div>
     </div>
@@ -768,7 +770,7 @@
             <div class="col-lg-4">
 <div class="footer-social">
 
-    <h4>FOLLOW US :</h4>
+    <h4>{{ __('FOLLOW US :') }}</h4>
 
     <div class="social-icons">
 
@@ -801,21 +803,21 @@
 
                 <h5 class="fw-bold mb-3">
 
-                    Quick Links
+                    {{ __('Quick Links') }}
 
                 </h5>
 
                 <ul class="list-unstyled">
 
-                    <li><a href="{{ route('home') }}" class="text-white text-decoration-none">Home</a></li>
+                    <li><a href="{{ route('home') }}" class="text-white text-decoration-none">{{ __('Home') }}</a></li>
 
-                    <li><a href="{{ route('about') }}" class="text-white text-decoration-none">Profile</a></li>
+                    <li><a href="{{ route('about') }}" class="text-white text-decoration-none">{{ __('Profile') }}</a></li>
 
-                    <li><a href="{{ route('programs') }}" class="text-white text-decoration-none">Programs</a></li>
+                    <li><a href="{{ route('programs') }}" class="text-white text-decoration-none">{{ __('Programs') }}</a></li>
 
-                    <li><a href="{{ route('partnership') }}" class="text-white text-decoration-none">Partnership</a></li>
+                    <li><a href="{{ route('partnership') }}" class="text-white text-decoration-none">{{ __('Partnership') }}</a></li>
 
-                    <li><a href="{{ route('contact') }}" class="text-white text-decoration-none">Contact</a></li>
+                    <li><a href="{{ route('contact') }}" class="text-white text-decoration-none">{{ __('Contact') }}</a></li>
 
                 </ul>
             </div>
@@ -824,7 +826,7 @@
 
                 <h5 class="fw-bold mb-3">
 
-                    Contact Us
+                    {{ __('Contact Us') }}
 
                 </h5>
 

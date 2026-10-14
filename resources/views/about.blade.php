@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ app()->getLocale() }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +9,10 @@
     <style>
         body { font-family: 'Segoe UI', sans-serif; background: #f5f8fb; color: #1b2a3a; }
         .topbar { background: #0b7ea5; color: white; padding: 10px 0; }
+        .language-toggle { display: inline-flex; align-items: center; gap: 5px; margin: 0; }
+        .language-toggle-button { display: inline-flex; align-items: center; justify-content: center; padding: 4px; border: 1px solid transparent; border-radius: 5px; background: transparent; opacity: .62; cursor: pointer; }
+        .language-toggle-button:hover, .language-toggle-button:focus-visible, .language-toggle-button.active { border-color: rgba(255,255,255,.65); opacity: 1; }
+        .language-toggle-button img { display: block; object-fit: cover; }
         .navbar { background: white; box-shadow: 0 3px 12px rgba(0,0,0,.06); }
         .brand img { max-width: 180px; }
         .page-hero { background: linear-gradient(135deg, #0b7ea5, #0e4a73); color: #fff; padding: 90px 0 70px; }
@@ -28,8 +32,7 @@
                 <span><i class="bi bi-youtube"></i></span>
             </div>
             <div>
-                <img src="{{ asset('images/id.png') }}" width="22" class="me-2" alt="ID">
-                <img src="{{ asset('images/us.png') }}" width="22" alt="US">
+                @include('components.language-toggle')
             </div>
         </div>
     </div>
@@ -38,11 +41,11 @@
         <div class="container">
             <a class="brand" href="{{ route('home') }}"><img src="{{ asset('images/logo.png') }}" alt="POLNEP"></a>
             <div class="ms-auto d-flex gap-3 align-items-center">
-                <a class="text-decoration-none text-dark fw-semibold" href="{{ route('home') }}">Home</a>
-                <a class="text-decoration-none text-dark fw-semibold" href="{{ route('about') }}">About</a>
-                <a class="text-decoration-none text-dark fw-semibold" href="{{ route('partnership') }}">Partnership</a>
-                <a class="text-decoration-none text-dark fw-semibold" href="{{ route('programs') }}">Programs</a>
-                <a class="text-decoration-none text-dark fw-semibold" href="{{ route('contact') }}">Contact</a>
+                <a class="text-decoration-none text-dark fw-semibold" href="{{ route('home') }}">{{ __('Home') }}</a>
+                <a class="text-decoration-none text-dark fw-semibold" href="{{ route('about') }}">{{ __('About') }}</a>
+                <a class="text-decoration-none text-dark fw-semibold" href="{{ route('partnership') }}">{{ __('Partnership') }}</a>
+                <a class="text-decoration-none text-dark fw-semibold" href="{{ route('programs') }}">{{ __('Programs') }}</a>
+                <a class="text-decoration-none text-dark fw-semibold" href="{{ route('contact') }}">{{ __('Contact') }}</a>
             </div>
         </div>
     </nav>
@@ -51,17 +54,17 @@
         <div class="container">
             <div class="row align-items-center g-4">
                 <div class="col-lg-7">
-                    <p class="text-uppercase fw-bold mb-2 text-light opacity-75">About us</p>
-                    <h1 class="display-5 fw-bold mb-3">Developing skills, technology, and character</h1>
-                    <p class="lead mb-0 text-light opacity-75">POLNEP is committed to producing professional graduates ready to contribute to society, industry, and the nation through practical learning and innovation.</p>
+                    <p class="text-uppercase fw-bold mb-2 text-light opacity-75">{{ __('About us') }}</p>
+                    <h1 class="display-5 fw-bold mb-3">{{ __('Developing skills, technology, and character') }}</h1>
+                    <p class="lead mb-0 text-light opacity-75">{{ __('POLNEP is committed to producing professional graduates ready to contribute to society, industry, and the nation through practical learning and innovation.') }}</p>
                 </div>
                 <div class="col-lg-5">
                     <div class="page-card p-4">
-                        <h4 class="section-title mb-3">Our commitment</h4>
+                        <h4 class="section-title mb-3">{{ __('Our commitment') }}</h4>
                         <ul class="list-unstyled mb-0">
-                            <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Applied learning approach</li>
-                            <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Industry-ready graduates</li>
-                            <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Innovation and community impact</li>
+                            <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>{{ __('Applied learning approach') }}</li>
+                            <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>{{ __('Industry-ready graduates') }}</li>
+                            <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>{{ __('Innovation and community impact') }}</li>
                         </ul>
                     </div>
                 </div>
@@ -74,22 +77,22 @@
             <div class="col-lg-4">
                 <div class="feature-box">
                     <i class="bi bi-bullseye fs-2 text-primary"></i>
-                    <h4 class="mt-3 section-title">Vision</h4>
-                    <p class="mb-0">To become a leading vocational higher education institution that produces highly competent graduates and contributes to sustainable regional development.</p>
+                    <h4 class="mt-3 section-title">{{ __('Vision') }}</h4>
+                    <p class="mb-0">{{ __('To become a leading vocational higher education institution that produces highly competent graduates and contributes to sustainable regional development.') }}</p>
                 </div>
             </div>
             <div class="col-lg-4">
                 <div class="feature-box">
                     <i class="bi bi-diagram-3 fs-2 text-primary"></i>
-                    <h4 class="mt-3 section-title">Mission</h4>
-                    <p class="mb-0">Delivering excellent teaching, applied research, community engagement, and international collaboration with strong integrity.</p>
+                    <h4 class="mt-3 section-title">{{ __('Mission') }}</h4>
+                    <p class="mb-0">{{ __('Delivering excellent teaching, applied research, community engagement, and international collaboration with strong integrity.') }}</p>
                 </div>
             </div>
             <div class="col-lg-4">
                 <div class="feature-box">
                     <i class="bi bi-people-fill fs-2 text-primary"></i>
-                    <h4 class="mt-3 section-title">Values</h4>
-                    <p class="mb-0">Academic excellence, professionalism, innovation, teamwork, and social responsibility guide every student and staff activity.</p>
+                    <h4 class="mt-3 section-title">{{ __('Values') }}</h4>
+                    <p class="mb-0">{{ __('Academic excellence, professionalism, innovation, teamwork, and social responsibility guide every student and staff activity.') }}</p>
                 </div>
             </div>
         </div>
@@ -97,12 +100,12 @@
         <div class="page-card p-4 p-lg-5 mb-5">
             <div class="row g-4 align-items-center">
                 <div class="col-lg-6">
-                    <h2 class="section-title mb-3">Why students choose POLNEP</h2>
-                    <p>We combine classroom learning with project-based activities, internships, and industry partnerships so every student gains practical experience and professional confidence.</p>
+                    <h2 class="section-title mb-3">{{ __('Why students choose POLNEP') }}</h2>
+                    <p>{{ __('We combine classroom learning with project-based activities, internships, and industry partnerships so every student gains practical experience and professional confidence.') }}</p>
                     <div class="d-flex flex-column gap-2">
-                        <div><i class="bi bi-check2-circle text-success me-2"></i>Experienced lecturers and practitioners</div>
-                        <div><i class="bi bi-check2-circle text-success me-2"></i>Modern learning facilities and labs</div>
-                        <div><i class="bi bi-check2-circle text-success me-2"></i>Strong alumni and employer network</div>
+                        <div><i class="bi bi-check2-circle text-success me-2"></i>{{ __('Experienced lecturers and practitioners') }}</div>
+                        <div><i class="bi bi-check2-circle text-success me-2"></i>{{ __('Modern learning facilities and labs') }}</div>
+                        <div><i class="bi bi-check2-circle text-success me-2"></i>{{ __('Strong alumni and employer network') }}</div>
                     </div>
                 </div>
                 <div class="col-lg-6">
@@ -125,16 +128,16 @@
                     </div>
                 </div>
                 <div class="col-lg-4">
-                    <h5 class="fw-bold mb-3">Quick links</h5>
+                    <h5 class="fw-bold mb-3">{{ __('Quick Links') }}</h5>
                     <ul class="list-unstyled">
-                        <li class="mb-2"><a href="{{ route('home') }}" class="text-decoration-none text-light opacity-75">Home</a></li>
-                        <li class="mb-2"><a href="{{ route('visi-misi') }}" class="text-decoration-none text-light opacity-75">Vision & Mission</a></li>
-                        <li class="mb-2"><a href="{{ route('organization.index') }}" class="text-decoration-none text-light opacity-75">Organization</a></li>
-                        <li class="mb-2"><a href="{{ route('partnership') }}" class="text-decoration-none text-light opacity-75">Partnership</a></li>
+                        <li class="mb-2"><a href="{{ route('home') }}" class="text-decoration-none text-light opacity-75">{{ __('Home') }}</a></li>
+                        <li class="mb-2"><a href="{{ route('visi-misi') }}" class="text-decoration-none text-light opacity-75">{{ __('Vision & Mission') }}</a></li>
+                        <li class="mb-2"><a href="{{ route('organization.index') }}" class="text-decoration-none text-light opacity-75">{{ __('Organization Structure') }}</a></li>
+                        <li class="mb-2"><a href="{{ route('partnership') }}" class="text-decoration-none text-light opacity-75">{{ __('Partnership') }}</a></li>
                     </ul>
                 </div>
                 <div class="col-lg-4">
-                    <h5 class="fw-bold mb-3">Contact</h5>
+                    <h5 class="fw-bold mb-3">{{ __('Contact') }}</h5>
                     <p class="mb-2 text-light opacity-75"><i class="bi bi-geo-alt-fill me-2"></i>Jl. Ahmad Yani, Pontianak</p>
                     <p class="mb-2 text-light opacity-75"><i class="bi bi-envelope-fill me-2"></i>info@polnep.ac.id</p>
                     <p class="mb-0 text-light opacity-75"><i class="bi bi-telephone-fill me-2"></i>+62 0561 736180</p>

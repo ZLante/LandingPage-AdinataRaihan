@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminPageController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FaqController;
+use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\OrganizationController;
@@ -46,6 +47,7 @@ Route::get('/partnership', function () {
 })->name('partnership');
 Route::view('/programs', 'programs')->name('programs');
 Route::view('/contact', 'contact')->name('contact');
+Route::post('/language', [LanguageController::class, 'update'])->name('language.update');
 
 Route::middleware('auth')->group(function () {
     Route::post('/logout', [LoginController::class, 'logout'])

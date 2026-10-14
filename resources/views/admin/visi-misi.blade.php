@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ app()->getLocale() }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,6 +11,10 @@
         body { margin: 0; min-height: 100vh; color: var(--ink); font-family: Arial, sans-serif; background: #fff; }
         .visi-page { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 31px 220px 1fr 190px; }
         .topbar { grid-column: 1 / -1; display: flex; justify-content: flex-end; align-items: center; padding: 0 11px; background: var(--blue); }
+        .language-toggle { display: inline-flex; align-items: center; gap: 3px; margin: 0; }
+        .language-toggle-button { display: inline-flex; align-items: center; justify-content: center; padding: 2px; border: 1px solid transparent; border-radius: 3px; background: transparent; opacity: .65; cursor: pointer; }
+        .language-toggle-button:hover, .language-toggle-button:focus-visible, .language-toggle-button.active { border-color: #fff; opacity: 1; }
+        .language-toggle-button img { width: 23px; height: 15px; object-fit: cover; }
         .flags { display: flex; gap: 3px; }
         .flags img { width: 23px; height: 15px; object-fit: cover; }
         .hero { grid-column: 1 / -1; position: relative; display: grid; place-items: center; overflow: hidden; color: white; background: #354b42; }
@@ -55,28 +59,28 @@
 <body>
     <div class="visi-page">
         <header class="topbar">
-            <div class="flags"><img src="{{ asset('images/us.png') }}" alt="English"><img src="{{ asset('images/id.png') }}" alt="Indonesian"></div>
+            @include('components.language-toggle')
         </header>
         <section class="hero">
             <div class="hero-content">
-                <h1>VISI MISI</h1>
+                <h1>{{ __('VISION & MISSION') }}</h1>
                 <nav class="breadcrumb" aria-label="Breadcrumb">
-                    <a href="{{ url('/') }}">Home</a><span>&gt;</span><a href="{{ url('/') }}#profile">Profile</a><span>&gt;</span><span class="current">Visi Misi</span>
+                    <a href="{{ url('/') }}">{{ __('Home') }}</a><span>&gt;</span><a href="{{ url('/') }}#profile">{{ __('Profile') }}</a><span>&gt;</span><span class="current">{{ __('Vision & Mission') }}</span>
                 </nav>
             </div>
         </section>
         <main class="content">
             <div class="content-inner">
                 <div class="content-actions">
-                    <a class="home-link" href="{{ route('home') }}"><i class="bi bi-arrow-left"></i> Back to Home</a>
+                    <a class="home-link" href="{{ route('home') }}"><i class="bi bi-arrow-left"></i> {{ __('Back to Home') }}</a>
                     @if(auth()->check() && auth()->user()->role === 'admin')
-                        <a class="edit-link" href="{{ route('admin.visi-misi.edit') }}"><i class="bi bi-pencil"></i> Edit Visi &amp; Misi</a>
+                        <a class="edit-link" href="{{ route('admin.visi-misi.edit') }}"><i class="bi bi-pencil"></i> {{ __('Edit Vision & Mission') }}</a>
                     @endif
                 </div>
                 @if(session('success')) <div class="alert alert-success">{{ session('success') }}</div> @endif
-                <h2>VISI</h2>
+                <h2>{{ __('VISION') }}</h2>
                 <p>{{ $content->visi }}</p>
-                <h2>MISI</h2>
+                <h2>{{ __('MISSION') }}</h2>
                 <ol>
                     @foreach($content->misi as $mission)
                         <li>{{ $mission }}</li>
@@ -87,11 +91,11 @@
         <section class="footer-about">
             <img src="{{ asset('images/logo.png') }}" alt="POLNEP">
             <p>Politeknik Negeri Pontianak is a vocational Freedom Campus initiative that makes the learning process in vocational higher education more free to produce graduates that meet industry needs.</p>
-            <strong>FOLLOW US :</strong>
+            <strong>{{ __('FOLLOW US :') }}</strong>
             <div class="socials"><a href="https://web.facebook.com/mediapolnep/mentions/?_rdc=1&amp;_rdr#" aria-label="POLNEP on Facebook" target="_blank" rel="noopener noreferrer"><i class="bi bi-facebook"></i></a><a href="https://www.youtube.com/@mediapolnep" aria-label="POLNEP on YouTube" target="_blank" rel="noopener noreferrer"><i class="bi bi-youtube"></i></a><a href="https://www.instagram.com/mediapolnep/?hl=en" aria-label="POLNEP on Instagram" target="_blank" rel="noopener noreferrer"><i class="bi bi-instagram"></i></a></div>
         </section>
         <section class="footer-contact">
-            <h3>CONTACT &amp; LOCATION :</h3>
+            <h3>{{ __('CONTACT & LOCATION :') }}</h3>
             <p><i class="bi bi-geo-alt-fill"></i> &nbsp; Jl. Jenderal Ahmad Yani, Banjar Laut, Pontianak Tenggara, Kota Pontianak, Kalimantan Barat 78124</p>
             <p><i class="bi bi-telephone-fill"></i> &nbsp; XXX-XXX-XXXX</p>
             <p><i class="bi bi-envelope-fill"></i> &nbsp; kampus@polnep.ac.id</p>

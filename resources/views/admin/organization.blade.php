@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ app()->getLocale() }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,7 +15,10 @@
         .search input { width: 100%; border: 0; padding: 4px 8px; background: transparent; font-size: 9px; }
         .search button { width: 27px; border: 0; color: #075373; background: #bde5ec; cursor: pointer; }
         .languages { position: absolute; right: 10px; display: flex; gap: 3px; }
-        .languages img { width: 23px; height: 15px; object-fit: cover; }
+        .language-toggle { display: inline-flex; align-items: center; gap: 3px; margin: 0; }
+        .language-toggle-button { display: inline-flex; align-items: center; justify-content: center; padding: 2px; border: 1px solid transparent; border-radius: 3px; background: transparent; opacity: .65; cursor: pointer; }
+        .language-toggle-button:hover, .language-toggle-button:focus-visible, .language-toggle-button.active { border-color: #fff; opacity: 1; }
+        .language-toggle-button img { width: 23px; height: 15px; object-fit: cover; }
         .details { grid-row: 2 / 4; display: flex; flex-direction: column; padding: 24px 19px 18px; background: var(--pale-cyan); }
         .brand { width: 205px; margin-bottom: 18px; }
         .details h1 { max-width: 190px; margin: 0 0 20px; font-size: 23px; line-height: 1.1; }
@@ -71,31 +74,31 @@
 <body>
     <div class="org-page">
         <header class="topbar">
-            <form class="search"><input type="search" placeholder="Search here..." aria-label="Search organization"><button type="submit" aria-label="Search"><i class="bi bi-search"></i></button></form>
-            <div class="languages"><img src="{{ asset('images/id.png') }}" alt="Indonesian"><img src="{{ asset('images/us.png') }}" alt="English"></div>
+            <form class="search"><input type="search" placeholder="{{ __('Search Here...') }}" aria-label="{{ __('Search organization') }}"><button type="submit" aria-label="{{ __('Search') }}"><i class="bi bi-search"></i></button></form>
+            <div class="languages">@include('components.language-toggle')</div>
         </header>
 
         <aside class="details">
             <a href="{{ route('home') }}"><img class="brand" src="{{ asset('images/logo.png') }}" alt="POLNEP"></a>
-            <h1>Polnep<br>Organizational<br>Chart</h1>
-            <p>View the campus structure and the people serving our community.</p>
-            <h2>Last Update</h2>
+            <h1>Polnep<br>{{ __('Organizational') }}<br>{{ __('Chart') }}</h1>
+            <p>{{ __('View the organizational chart and the people serving our campus.') }}</p>
+            <h2>{{ __('Last Update') }}</h2>
             <p>{{ now()->format('F Y') }}</p>
         </aside>
 
         <main class="chart-area">
             <div class="chart-heading">
-                <a class="home-link" href="{{ route('home') }}"><i class="bi bi-arrow-left"></i> Back to Home</a>
+                <a class="home-link" href="{{ route('home') }}"><i class="bi bi-arrow-left"></i> {{ __('Back to Home') }}</a>
                 @if(auth()->check() && auth()->user()->role === 'admin')
-                    <a href="{{ route('organization.create') }}"><i class="bi bi-plus"></i> Add Member</a>
+                    <a href="{{ route('organization.create') }}"><i class="bi bi-plus"></i> {{ __('Add Member') }}</a>
                 @endif
             </div>
             @unless(auth()->check() && auth()->user()->role === 'admin')
-                <p class="read-only-note">This organization chart is available for viewing only.</p>
+                <p class="read-only-note">{{ __('This organization chart is available for viewing only.') }}</p>
             @endunless
             @if(session('success')) <div class="alert alert-success">{{ session('success') }}</div> @endif
             @if($members->isEmpty())
-                <p class="text-center">No organization members have been added yet.</p>
+                <p class="text-center">{{ __('No organization members have been added yet.') }}</p>
             @else
                 <div class="chart">
                     @foreach($members as $member)
@@ -104,8 +107,8 @@
                             <span class="node-copy"><strong>{{ $member->name }}</strong><span>{{ $member->position }}</span></span>
                             @if(auth()->check() && auth()->user()->role === 'admin')
                                 <span class="node-actions">
-                                    <a href="{{ route('organization.edit', $member) }}" title="Edit"><i class="bi bi-pencil"></i></a>
-                                    <form action="{{ route('organization.destroy', $member) }}" method="POST" onsubmit="return confirm('Delete this member?')">
+                                    <a href="{{ route('organization.edit', $member) }}" title="{{ __('Edit') }}"><i class="bi bi-pencil"></i></a>
+                                    <form action="{{ route('organization.destroy', $member) }}" method="POST" onsubmit="return confirm('{{ __('Delete this member?') }}')">
                                         @csrf @method('DELETE')
                                         <button type="submit" title="Delete"><i class="bi bi-trash"></i></button>
                                     </form>
